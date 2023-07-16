@@ -14,7 +14,7 @@
     "generate:prisma": "prisma generate",
     "migrate": "prisma migrate dev",
     "pull:db": "prisma db pull",
-    "seed:db": "yarn run build&& node ./dist/prisma/seed.js",
+    "seed:db": "yarn run build&& node ./dist/prisma/seed.js"
   },
   "dependencies": {
     "@prisma/client": "^5.0.0",
