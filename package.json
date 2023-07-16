@@ -1,0 +1,15 @@
+{
+  "name": "openstock",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "AlecJDavidson <alecjdavidson@outlook.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "server:start": "cd packages/server && yarn start",
+    "webui:start": "cd packages/webui && yarn start"
+  }
+}
