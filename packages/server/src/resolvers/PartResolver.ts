@@ -3,6 +3,8 @@ import { PrismaClient, Prisma } from '@prisma/client'
 import { Part, PartFilter } from '../types/Part'
 import { v4 as uuidv4 } from 'uuid'
 
+
+
 @Resolver()
 export class PartResolver {
   private prisma: PrismaClient
@@ -43,6 +45,24 @@ export class PartResolver {
   //   return this.prisma.part.findMany({ where })
   // }
 
+  // @Query(() => [Part])
+  // async partsBy(@Arg('search') search: string): Promise<Part[]> {
+  //   return this.prisma.part.findMany({
+  //     where: {
+  //       OR: [
+  //         { brand: { contains: search, mode: 'insensitive' } },
+  //         { name: { contains: search, mode: 'insensitive' } },
+  //         { model: { contains: search, mode: 'insensitive' } },
+  //         { description: { contains: search, mode: 'insensitive' } },
+  //         { bin: { contains: search, mode: 'insensitive' } },
+  //         { container: { contains: search, mode: 'insensitive' } },
+  //         { location: { contains: search, mode: 'insensitive' } },
+  //         { tags: { has: search  } },
+  //       ],
+  //     },
+  //   })
+  // }
+  //
   @Query(() => [Part])
   async partsBy(@Arg('search') search: string): Promise<Part[]> {
     return this.prisma.part.findMany({
@@ -55,7 +75,7 @@ export class PartResolver {
           { bin: { contains: search, mode: 'insensitive' } },
           { container: { contains: search, mode: 'insensitive' } },
           { location: { contains: search, mode: 'insensitive' } },
-          { tags: { has: search  } },
+          { tags: { has: search } },
         ],
       },
     })
