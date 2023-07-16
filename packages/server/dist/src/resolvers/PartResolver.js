@@ -48,6 +48,24 @@ let PartResolver = class PartResolver {
     //
     //   return this.prisma.part.findMany({ where })
     // }
+    // @Query(() => [Part])
+    // async partsBy(@Arg('search') search: string): Promise<Part[]> {
+    //   return this.prisma.part.findMany({
+    //     where: {
+    //       OR: [
+    //         { brand: { contains: search, mode: 'insensitive' } },
+    //         { name: { contains: search, mode: 'insensitive' } },
+    //         { model: { contains: search, mode: 'insensitive' } },
+    //         { description: { contains: search, mode: 'insensitive' } },
+    //         { bin: { contains: search, mode: 'insensitive' } },
+    //         { container: { contains: search, mode: 'insensitive' } },
+    //         { location: { contains: search, mode: 'insensitive' } },
+    //         { tags: { has: search  } },
+    //       ],
+    //     },
+    //   })
+    // }
+    //
     async partsBy(search) {
         return this.prisma.part.findMany({
             where: {
