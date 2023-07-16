@@ -10,6 +10,8 @@
   ],
   "scripts": {
     "server:start": "cd packages/server && yarn start",
-    "webui:start": "cd packages/webui && yarn start"
+    "webui:start": "cd packages/webui && yarn start",
+    "start:db": "docker compose up -d",
+    "stop:db": "docker compose down"
   }
 }

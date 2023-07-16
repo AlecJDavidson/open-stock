@@ -4,3 +4,4 @@ packages/webui/.env
 packages/server/.env
 packages/server/prisma/migrations/
 packages/server/postgres/
+yarn-error.log
