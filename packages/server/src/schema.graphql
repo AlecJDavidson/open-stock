@@ -1,0 +1,30 @@
+type Part {
+  id: String!
+  brand: String!
+  name: String!
+  model: String!
+  description: String!
+  bin: String!
+  container: String!
+  location: String!
+  quantity: Int!
+  tags: [String!]!
+}
+
+type Query {
+  parts: [Part!]!
+}
+
+type Mutation {
+  createPart(
+    brand: String!
+    name: String!
+    model: String!
+    description: String!
+    bin: String!
+    container: String!
+    location: String!
+    quantity: Int!
+    tags: [String!]!
+  ): Part!
+}
