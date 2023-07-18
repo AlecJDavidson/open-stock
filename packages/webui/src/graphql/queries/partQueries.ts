@@ -1,7 +1,5 @@
 import { gql } from '@apollo/client'
 
-
-
 export const SEARCH_PARTS = gql`
   query Query($search: String!) {
     partsBy(search: $search) {
@@ -18,3 +16,20 @@ export const SEARCH_PARTS = gql`
     }
   }
 `
+
+export const GET_ALL_PARTS = gql`
+  query GetAllParts {
+    parts {
+      id
+      brand
+      name
+      model
+      description
+      bin
+      container
+      location
+      quantity
+      tags
+    }
+  }
+`;

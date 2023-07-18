@@ -1,21 +1,21 @@
 import React from 'react'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
-import Navbar from './components/ui/Navbar'
-import PartsSearch from './components/ui/PartSearch' // Replace with the path to your PartsSearch component
+import { ChakraProvider } from '@chakra-ui/react'
+import Home from './components/views/Home'
+const apollo_uri: string = import.meta.env.VITE_APOLLO_URI as string
 
-const apollo_uri = import.meta.env.VITE_APOLLO_URI
-
-const client = new ApolloClient({
+const client: ApolloClient<unknown> = new ApolloClient({
   uri: apollo_uri,
   cache: new InMemoryCache(),
 })
 
 const App: React.FC = () => {
   return (
-    <ApolloProvider client={client}>
-      <Navbar />
-      <PartsSearch />
-    </ApolloProvider>
+    <ChakraProvider>
+      <ApolloProvider client={client}>
+        <Home />
+      </ApolloProvider>
+    </ChakraProvider>
   )
 }
 
