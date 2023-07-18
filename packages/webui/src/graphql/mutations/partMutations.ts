@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client'
 
-
 export const CREATE_PART_MUTATION = gql`
   mutation CreatePart(
     $bin: String!
@@ -34,5 +33,20 @@ export const CREATE_PART_MUTATION = gql`
       quantity
       tags
     }
+  }
+`
+
+export const UPDATE_PART_MUTATION = gql`
+  mutation UpdatePartMutation($updatePartId: String!, $quantity: Float) {
+    updatePart(id: $updatePartId, quantity: $quantity) {
+      id
+      quantity
+    }
+  }
+`
+
+export const DELETE_PART_MUTATION = gql`
+  mutation DeletePart($deletePartId: String!) {
+    deletePart(id: $deletePartId)
   }
 `
