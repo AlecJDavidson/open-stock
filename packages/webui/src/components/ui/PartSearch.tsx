@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { useLazyQuery } from '@apollo/client'
+import React, { useState, useEffect } from 'react';
+import { useQuery, useMutation } from '@apollo/client';
 import {
   Box,
   Center,
@@ -13,109 +13,121 @@ import {
   Thead,
   Tr,
   IconButton,
-} from '@chakra-ui/react'
-import { SearchIcon, AddIcon, MinusIcon, CloseIcon } from '@chakra-ui/icons'
-import { useMutation } from '@apollo/client'
+} from '@chakra-ui/react';
+import { SearchIcon, AddIcon, MinusIcon, CloseIcon } from '@chakra-ui/icons';
 
-import { SEARCH_PARTS } from '../../graphql/queries/partQueries'
+import { SEARCH_PARTS } from '../../graphql/queries/partQueries';
 import {
   UPDATE_PART_MUTATION,
   DELETE_PART_MUTATION,
-} from '../../graphql/mutations/partMutations'
-import { Part } from '../../types/Part'
+} from '../../graphql/mutations/partMutations';
+import { Part } from '../../types/Part';
 
 const PartsSearch: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [searchParts, { loading, data }] = useLazyQuery<{ partsBy: Part[] }>(
+  const [searchQuery, setSearchQuery] = useState('');
+  const { loading, data, refetch } = useQuery<{ partsBy: Part[] }>(
     SEARCH_PARTS,
-  )
-  const [updatePartMutation] = useMutation(UPDATE_PART_MUTATION)
-
-  const [deletePartMutation] = useMutation(DELETE_PART_MUTATION, {
-    update(cache, { data: { deletePart } }) {
-      // Get the current data from the cache
-      const { partsBy } = cache.readQuery<{ partsBy: Part[] }>({
-        query: SEARCH_PARTS,
-        variables: { search: searchQuery },
-      }) || { partsBy: [] }
-
-      // Remove the deleted part from the cached data
-      const updatedPartsBy = partsBy.filter((part) => part.id !== deletePart.id)
-
-      // Write the updated data back to the cache
-      cache.writeQuery({
-        query: SEARCH_PARTS,
-        variables: { search: searchQuery },
-        data: { partsBy: updatedPartsBy },
-      })
+    {
+      variables: { search: searchQuery },
     },
-  })
+  );
+  const [updatePartMutation] = useMutation(UPDATE_PART_MUTATION);
+  const [deletePartMutation] = useMutation(DELETE_PART_MUTATION);
 
   useEffect(() => {
     // Trigger the search query whenever the searchQuery state changes
-    searchParts({ variables: { search: searchQuery } })
-  }, [searchQuery, searchParts])
+    // Note: You can also debounce the search to avoid excessive requests.
+    refetch({ search: searchQuery });
+  }, [searchQuery, refetch]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value)
-  }
+    setSearchQuery(event.target.value);
+  };
 
   const handleIncreaseQuantity = async (
     partId: string,
     currentQuantity: number,
   ) => {
     try {
-      // Increment the current quantity by 1
-      const updatedQuantity = currentQuantity + 1
-
-      // Perform the mutation by calling the updatePartMutation function with the variables.
+      const updatedQuantity = currentQuantity + 1;
       await updatePartMutation({
         variables: {
           updatePartId: partId,
           quantity: updatedQuantity,
         },
-      })
+        update(cache, { data: { updatePart } }) {
+          const { partsBy } = cache.readQuery<{ partsBy: Part[] }>({
+            query: SEARCH_PARTS,
+            variables: { search: searchQuery },
+          }) || { partsBy: [] };
+
+          const updatedPartsBy = partsBy.map((part) =>
+            part.id === updatePart.id ? { ...part, quantity: updatePart.quantity } : part
+          );
+
+          cache.writeQuery({
+            query: SEARCH_PARTS,
+            variables: { search: searchQuery },
+            data: { partsBy: updatedPartsBy },
+          });
+        },
+      });
     } catch (error) {
-      // Handle any errors that might occur during the mutation.
-      console.error('Error while updating the quantity')
+      console.error('Error while updating the quantity');
     }
-  }
+  };
 
   const handleDecreaseQuantity = async (
     partId: string,
     currentQuantity: number,
   ) => {
     try {
-      // Increment the current quantity by 1
-      const updatedQuantity = currentQuantity - 1
+      if (currentQuantity > 0) {
+        const updatedQuantity = currentQuantity - 1;
+        await updatePartMutation({
+          variables: {
+            updatePartId: partId,
+            quantity: updatedQuantity,
+          },
+          update(cache, { data: { updatePart } }) {
+            const { partsBy } = cache.readQuery<{ partsBy: Part[] }>({
+              query: SEARCH_PARTS,
+              variables: { search: searchQuery },
+            }) || { partsBy: [] };
 
-      // Perform the mutation by calling the updatePartMutation function with the variables.
-      await updatePartMutation({
-        variables: {
-          updatePartId: partId,
-          quantity: updatedQuantity,
-        },
-      })
+            const updatedPartsBy = partsBy.map((part) =>
+              part.id === updatePart.id ? { ...part, quantity: updatePart.quantity } : part
+            );
+
+            cache.writeQuery({
+              query: SEARCH_PARTS,
+              variables: { search: searchQuery },
+              data: { partsBy: updatedPartsBy },
+            });
+          },
+        });
+      }
     } catch (error) {
-      // Handle any errors that might occur during the mutation.
-      console.error('Error while updating the quantity')
+      console.error('Error while updating the quantity');
     }
-  }
+  };
 
-  const deletePart = async (partId: string) => {
+  const handleDeletePart = async (partId: string) => {
     try {
-      // Perform the mutation by calling the updatePartMutation function with the variables.
       await deletePartMutation({
         variables: {
           deletePartId: partId,
         },
-      })
-      console.log('deleting part: ', { partId })
+      });
+
+      console.log('Deleted part:', { partId });
+
+      // Refetch the data after the delete mutation to update the table
+      refetch();
     } catch (error) {
-      // Handle any errors that might occur during the mutation.
-      console.error('Error while deleting the part')
+      console.error('Error while deleting the part');
     }
-  }
+  };
 
   return (
     <Center>
@@ -164,33 +176,29 @@ const PartsSearch: React.FC = () => {
                       size='sm'
                       aria-label='Decrease Quantity'
                       icon={<MinusIcon />}
-                      onClick={() => {
-                        if (part.quantity > 0) {
-                          handleDecreaseQuantity(part.id, part.quantity)
-                        }
-                      }}
+                      onClick={() =>
+                        handleDecreaseQuantity(part.id, part.quantity)
+                      }
                     />
-                    &nbsp; {part.quantity} &nbsp;
+                    &nbsp;{part.quantity}&nbsp;
                     <IconButton
                       size='sm'
                       aria-label='Increase Quantity'
                       icon={<AddIcon />}
                       onClick={() =>
                         handleIncreaseQuantity(part.id, part.quantity)
-                      } // Pass the current quantity to the function
+                      }
                     />
                   </Td>
                   <Td>{part.tags.join(', ')}</Td>
                   <Td>
                     <IconButton
                       size='sm'
-                      aria-label='Decrease Quantity'
+                      aria-label='Delete Part'
                       icon={<CloseIcon />}
-                      onClick={() => {
-                        deletePart(part.id)
-                      }}
+                      onClick={() => handleDeletePart(part.id)}
                       _hover={{
-                        backgroundColor: 'red.500', // Change the color on hover to red
+                        backgroundColor: 'red.500',
                       }}
                     />
                   </Td>
@@ -201,7 +209,7 @@ const PartsSearch: React.FC = () => {
         </Table>
       </Box>
     </Center>
-  )
-}
+  );
+};
 
-export default PartsSearch
+export default PartsSearch;
