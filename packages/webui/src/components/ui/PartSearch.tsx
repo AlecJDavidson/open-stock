@@ -21,7 +21,7 @@ import {
   AddIcon,
   MinusIcon,
   CloseIcon,
-  CheckIcon,
+  // CheckIcon,
 } from '@chakra-ui/icons'
 
 import { SEARCH_PARTS } from '../../graphql/queries/partQueries'
@@ -258,7 +258,7 @@ const PartsSearch: React.FC = () => {
                         </Td>
                         {/* Add similar TDs for other fields */}
                         <Td>
-                          <IconButton
+                          {/*<IconButton
                             size='sm'
                             aria-label='Submit Edit'
                             icon={<CheckIcon />}
@@ -266,7 +266,7 @@ const PartsSearch: React.FC = () => {
                             _hover={{
                               backgroundColor: 'green.500',
                             }}
-                          />
+                          /> */}
                           <IconButton
                             size='sm'
                             aria-label='Cancel Edit'
@@ -328,7 +328,7 @@ const PartsSearch: React.FC = () => {
                               backgroundColor: 'red.500',
                             }}
                           />
-                          <IconButton
+                          {/*<IconButton
                             size='sm'
                             aria-label='Edit Part'
                             icon={<CheckIcon />}
@@ -336,7 +336,7 @@ const PartsSearch: React.FC = () => {
                             _hover={{
                               backgroundColor: 'blue.500',
                             }}
-                          />
+                          />*/}
                         </Td>
                       </>
                     )}
