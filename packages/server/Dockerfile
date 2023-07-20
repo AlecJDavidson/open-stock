@@ -24,9 +24,9 @@ ENV PORT=4000
 
 # Build the TypeScript code
 # RUN yarn build
-# RUN yarn generate
-# RUN yarn migrate
-# RUN yarn seed:db
+RUN yarn generate
+RUN yarn migrate
+RUN yarn seed:db
 
 # Expose the port that your server listens on
 EXPOSE 4000

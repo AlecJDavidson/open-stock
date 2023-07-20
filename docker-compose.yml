@@ -1,7 +1,25 @@
 version: '3'
 
 services:
-  postgres:
+  # webui:
+  #   depends_on:
+  #     - server
+  #   build:
+  #     context: ./packages/webui/
+  #   ports:
+  #     - 5173:5173
+  #
+  # server:
+  #   depends_on:
+  #     - database
+  #   build:
+  #     context: ./packages/server/
+  #   ports:
+  #     - 4000:4000
+  #   env_file:
+  #     - .env
+  #
+  database:
     image: 'postgres:latest'
     ports:
       - 5432:5432
@@ -9,22 +27,3 @@ services:
       - .env
     volumes:
       - ./postgres/db/:/var/lib/postgresql/data/
-
-  server:
-    image: 'open-stock/server'
-    # build:
-    #   context: ./packages/server/
-    depends_on:
-      - postgres
-    # network_mode: host
-    ports:
-      - 4000:4000
-  webui:
-    image: 'open-stock/webui'
-    # build:
-    #   context: ./packages/webui/
-    depends_on:
-      - server
-    # network_mode: host
-    ports:
-      - 5173:5173
