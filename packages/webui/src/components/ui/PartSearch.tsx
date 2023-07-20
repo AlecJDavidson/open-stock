@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import React, { useState, useEffect } from 'react'
+import { useQuery, useMutation } from '@apollo/client'
 import {
   Box,
   Center,
@@ -15,66 +15,72 @@ import {
   IconButton,
   Stack,
   VStack,
-} from '@chakra-ui/react';
-import { SearchIcon, AddIcon, MinusIcon, CloseIcon } from '@chakra-ui/icons';
+} from '@chakra-ui/react'
+import { SearchIcon, AddIcon, MinusIcon, CloseIcon } from '@chakra-ui/icons'
 
-import { SEARCH_PARTS } from '../../graphql/queries/partQueries';
+import { SEARCH_PARTS } from '../../graphql/queries/partQueries'
 import {
   UPDATE_PART_MUTATION,
   DELETE_PART_MUTATION,
-} from '../../graphql/mutations/partMutations';
-import { Part } from '../../types/Part';
+} from '../../graphql/mutations/partMutations'
+import { Part } from '../../types/Part'
 
 const PartsSearch: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>('')
   const { loading, data, refetch } = useQuery<{ partsBy: Part[] }>(
     SEARCH_PARTS,
     {
       variables: { search: searchQuery },
     },
-  );
-  const [updatePartMutation] = useMutation(UPDATE_PART_MUTATION);
-  const [deletePartMutation] = useMutation(DELETE_PART_MUTATION);
+  )
+  const [updatePartMutation] = useMutation(UPDATE_PART_MUTATION)
+  const [deletePartMutation] = useMutation(DELETE_PART_MUTATION)
 
   useEffect(() => {
     // Trigger the search query whenever the searchQuery state changes
     // Note: You can also debounce the search to avoid excessive requests.
-    refetch({ search: searchQuery });
-  }, [searchQuery, refetch]);
+    refetch({ search: searchQuery })
+  }, [searchQuery, refetch])
 
   // Step 1: Add state for sorting
-  const [sorting, setSorting] = useState<{ column: string; direction: 'asc' | 'desc' }>({
+  const [sorting, setSorting] = useState<{
+    column: string
+    direction: 'asc' | 'desc'
+  }>({
     column: 'name', // Default sorting column
     direction: 'asc', // Default sorting direction
-  });
+  })
 
   // Step 2: Function to handle sorting
   const handleSort = (column: string) => {
     setSorting((prevSorting) => ({
       column,
-      direction: prevSorting.column === column && prevSorting.direction === 'asc' ? 'desc' : 'asc',
-    }));
-  };
+      direction:
+        prevSorting.column === column && prevSorting.direction === 'asc'
+          ? 'desc'
+          : 'asc',
+    }))
+  }
 
   // Step 3: Apply sorting to the table data
   const sortedData = data?.partsBy.slice().sort((a: any, b: any) => {
     if (sorting.direction === 'asc') {
-      return a[sorting.column].localeCompare(b[sorting.column]);
+      return a[sorting.column].localeCompare(b[sorting.column])
     } else {
-      return b[sorting.column].localeCompare(a[sorting.column]);
+      return b[sorting.column].localeCompare(a[sorting.column])
     }
-  });
+  })
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value);
-  };
+    setSearchQuery(event.target.value)
+  }
 
   const handleIncreaseQuantity = async (
     partId: string,
     currentQuantity: number,
   ) => {
     try {
-      const updatedQuantity = currentQuantity + 1;
+      const updatedQuantity = currentQuantity + 1
       await updatePartMutation({
         variables: {
           updatePartId: partId,
@@ -84,25 +90,25 @@ const PartsSearch: React.FC = () => {
           const { partsBy } = cache.readQuery<{ partsBy: Part[] }>({
             query: SEARCH_PARTS,
             variables: { search: searchQuery },
-          }) || { partsBy: [] };
+          }) || { partsBy: [] }
 
           const updatedPartsBy = partsBy.map((part) =>
             part.id === updatePart.id
               ? { ...part, quantity: updatePart.quantity }
               : part,
-          );
+          )
 
           cache.writeQuery({
             query: SEARCH_PARTS,
             variables: { search: searchQuery },
             data: { partsBy: updatedPartsBy },
-          });
+          })
         },
-      });
+      })
     } catch (error) {
-      console.error('Error while updating the quantity');
+      console.error('Error while updating the quantity')
     }
-  };
+  }
 
   const handleDecreaseQuantity = async (
     partId: string,
@@ -110,7 +116,7 @@ const PartsSearch: React.FC = () => {
   ) => {
     try {
       if (currentQuantity > 0) {
-        const updatedQuantity = currentQuantity - 1;
+        const updatedQuantity = currentQuantity - 1
         await updatePartMutation({
           variables: {
             updatePartId: partId,
@@ -120,26 +126,26 @@ const PartsSearch: React.FC = () => {
             const { partsBy } = cache.readQuery<{ partsBy: Part[] }>({
               query: SEARCH_PARTS,
               variables: { search: searchQuery },
-            }) || { partsBy: [] };
+            }) || { partsBy: [] }
 
             const updatedPartsBy = partsBy.map((part) =>
               part.id === updatePart.id
                 ? { ...part, quantity: updatePart.quantity }
                 : part,
-            );
+            )
 
             cache.writeQuery({
               query: SEARCH_PARTS,
               variables: { search: searchQuery },
               data: { partsBy: updatedPartsBy },
-            });
+            })
           },
-        });
+        })
       }
     } catch (error) {
-      console.error('Error while updating the quantity');
+      console.error('Error while updating the quantity')
     }
-  };
+  }
 
   const handleDeletePart = async (partId: string) => {
     try {
@@ -147,20 +153,20 @@ const PartsSearch: React.FC = () => {
         variables: {
           deletePartId: partId,
         },
-      });
+      })
 
-      console.log('Deleted part:', { partId });
+      console.log('Deleted part:', { partId })
 
       // Refetch the data after the delete mutation to update the table
-      refetch();
+      refetch()
     } catch (error) {
-      console.error('Error while deleting the part');
+      console.error('Error while deleting the part')
     }
-  };
+  }
 
   return (
     <Center>
-      <VStack spacing={4} maxWidth='95%' align='stretch'>
+      <VStack spacing={4} maxWidth='97%' align='stretch'>
         <InputGroup>
           <Input
             placeholder='Search for parts...'
@@ -171,7 +177,14 @@ const PartsSearch: React.FC = () => {
             <SearchIcon color='gray.300' cursor='pointer' />
           </InputRightElement>
         </InputGroup>
-        <Box border='1px solid #ccc' p={4} borderRadius='md' w='100%'>
+        <Box
+          border='1px solid #ccc'
+          p={4}
+          borderRadius='md'
+          w='100%'
+          overflowY='auto'
+          h='53.1rem'
+        >
           <Table variant='striped' size='md'>
             <Thead>
               <Tr>
@@ -210,7 +223,9 @@ const PartsSearch: React.FC = () => {
                           size='sm'
                           aria-label='Decrease Quantity'
                           icon={<MinusIcon />}
-                          onClick={() => handleDecreaseQuantity(part.id, part.quantity)}
+                          onClick={() =>
+                            handleDecreaseQuantity(part.id, part.quantity)
+                          }
                         />
                         <Box>
                           {part.quantity > 10
@@ -221,7 +236,9 @@ const PartsSearch: React.FC = () => {
                           size='sm'
                           aria-label='Increase Quantity'
                           icon={<AddIcon />}
-                          onClick={() => handleIncreaseQuantity(part.id, part.quantity)}
+                          onClick={() =>
+                            handleIncreaseQuantity(part.id, part.quantity)
+                          }
                         />
                       </Stack>
                     </Td>
@@ -245,7 +262,7 @@ const PartsSearch: React.FC = () => {
         </Box>
       </VStack>
     </Center>
-  );
-};
+  )
+}
 
-export default PartsSearch;
+export default PartsSearch

@@ -83,8 +83,8 @@ const AddPartForm: React.FC = () => {
   }
 
   return (
-    <Center>
-      <Box border='1px solid #ccc' p={4} borderRadius='md' maxWidth={'95%'}>
+    <Box justifyContent={'center'} marginLeft={'1.5rem'}>
+      <Box border='1px solid #ccc' p={4} borderRadius='md' maxWidth={'100%'} maxHeight={'100rem'}>
         <form onSubmit={handleSubmit}>
           <VStack spacing={4} align='stretch'>
             <FormControl isRequired>
@@ -96,66 +96,64 @@ const AddPartForm: React.FC = () => {
                 onChange={handleChange}
               />
             </FormControl>
-
-            <label>
-              Brand:
-              <input
+            <FormControl>
+              <FormLabel>Brand:</FormLabel>
+              <Input
                 type='text'
                 name='brand'
                 value={formData.brand}
                 onChange={handleChange}
-                required
               />
-            </label>
-            <label>
-              Container:
-              <input
+            </FormControl>
+            <FormControl>
+              <FormLabel>Container:</FormLabel>
+              <Input
                 type='text'
                 name='container'
                 value={formData.container}
                 onChange={handleChange}
-                required
               />
-            </label>
-            <label>
-              Description:
-              <textarea
+            </FormControl>
+
+            <FormControl>
+              <FormLabel>Description:</FormLabel>
+              <Input
+                type='text'
                 name='description'
                 value={formData.description}
                 onChange={handleChange}
-                required
               />
-            </label>
-            <label>
-              Location:
-              <input
+            </FormControl>
+
+            <FormControl>
+              <FormLabel>Location:</FormLabel>
+              <Input
                 type='text'
                 name='location'
                 value={formData.location}
                 onChange={handleChange}
-                required
               />
-            </label>
-            <label>
-              Model:
-              <input
+            </FormControl>
+
+            <FormControl>
+              <FormLabel>Model:</FormLabel>
+              <Input
                 type='text'
                 name='model'
                 value={formData.model}
                 onChange={handleChange}
-                required
               />
-            </label>
-            <label>
-              Name:
-              <input
+            </FormControl>
+
+            <FormControl>
+              <FormLabel>Name:</FormLabel>
+              <Input
                 type='text'
                 name='name'
                 value={formData.name}
                 onChange={handleChange}
-                required
               />
-            </label>
+            </FormControl>
 
             <FormControl isRequired>
               <FormLabel>Quantity:</FormLabel>
@@ -189,7 +187,7 @@ const AddPartForm: React.FC = () => {
           </VStack>
         </form>
       </Box>
-    </Center>
+    </Box>
   )
 }
 
