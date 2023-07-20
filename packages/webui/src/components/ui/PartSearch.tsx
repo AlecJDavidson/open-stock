@@ -21,7 +21,7 @@ import {
   AddIcon,
   MinusIcon,
   CloseIcon,
-  // CheckIcon,
+  CheckIcon,
 } from '@chakra-ui/icons'
 
 import { SEARCH_PARTS } from '../../graphql/queries/partQueries'
@@ -49,10 +49,6 @@ const PartsSearch: React.FC = () => {
   }, [searchQuery, refetch])
 
   const [editingPart, setEditingPart] = useState<string | null>(null)
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value)
-  }
 
   // Step 1: Add state for sorting
   const [sorting, setSorting] = useState<{
@@ -172,37 +168,57 @@ const PartsSearch: React.FC = () => {
     }
   }
 
-  // const handleEditPart = (partId: string) => {
-  //   setEditingPart(partId)
-  // }
+  const [editedPartData, setEditedPartData] = useState<Part | null>(null)
+
+  const handleEditPart = (part: Part) => {
+    setEditedPartData({ ...part }) // Set the initial value for editedPartData
+    setEditingPart(part.id)
+  }
 
   const handleCancelEdit = () => {
+    setEditedPartData(null) // Reset the editedPartData state
     setEditingPart(null)
   }
 
-  // const handleUpdatePart = async (partId: string) => {
-  //   // Get the updated part data from the form (you can access it using refs, state, etc.)
-  //   const updatedPartData = {}
-  //
-  //   try {
-  //     await updatePartMutation({
-  //       variables: {
-  //         updatePartId: partId,
-  //         ...updatedPartData,
-  //       },
-  //     })
-  //
-  //     console.log('Updated part:', { partId })
-  //
-  //     // Clear the editing mode
-  //     setEditingPart(null)
-  //
-  //     // Refetch the data after the update mutation to update the table
-  //     refetch()
-  //   } catch (error) {
-  //     console.error('Error while updating the part')
-  //   }
-  // }
+  const handleUpdatePart = async (partId: string) => {
+    try {
+      if (!editedPartData) return // Add a check to make sure editedPartData exists
+
+      await updatePartMutation({
+        variables: {
+          updatePartId: partId,
+          ...editedPartData, // Spread the editedPartData to update the part fields
+        },
+        update(cache, { data: { updatePart } }) {
+          const { partsBy } = cache.readQuery<{ partsBy: Part[] }>({
+            query: SEARCH_PARTS,
+            variables: { search: searchQuery },
+          }) || { partsBy: [] }
+
+          const updatedPartsBy = partsBy.map((part) =>
+            part.id === updatePart.id ? { ...updatePart } : part,
+          )
+
+          cache.writeQuery({
+            query: SEARCH_PARTS,
+            variables: { search: searchQuery },
+            data: { partsBy: updatedPartsBy },
+          })
+        },
+      })
+
+      console.log('Updated part:', { partId })
+
+      // Clear the editing mode and reset the editedPartData state
+      setEditingPart(null)
+      setEditedPartData(null)
+
+      // Refetch the data after the update mutation to update the table
+      refetch()
+    } catch (error) {
+      console.error('Error while updating the part', error)
+    }
+  }
 
   return (
     <Center>
@@ -211,7 +227,7 @@ const PartsSearch: React.FC = () => {
           <Input
             placeholder='Search for parts...'
             value={searchQuery}
-            onChange={handleInputChange}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
           <InputRightElement>
             <SearchIcon color='gray.300' cursor='pointer' />
@@ -251,14 +267,110 @@ const PartsSearch: React.FC = () => {
                     {/* Step 4: Conditionally render row content based on edit mode */}
                     {editingPart === part.id ? (
                       <>
-                        {/* Render input fields for editing */}
                         <Td>
-                          {/* Add input fields for editing */}
-                          {/* For example: <input value={part.name} onChange={(e) => updateName(e.target.value)} /> */}
+                          <input
+                            value={editedPartData?.name || ''}
+                            onChange={(e: any) =>
+                              setEditedPartData((prevData: any) => ({
+                                ...prevData,
+                                name: e.target.value,
+                              }))
+                            }
+                          />
                         </Td>
-                        {/* Add similar TDs for other fields */}
                         <Td>
-                          {/*<IconButton
+                          <input
+                            value={editedPartData?.brand || ''}
+                            onChange={(e: any) =>
+                              setEditedPartData((prevData: any) => ({
+                                ...prevData,
+                                brand: e.target.value,
+                              }))
+                            }
+                          />
+                        </Td>
+                        <Td>
+                          <input
+                            value={editedPartData?.model || ''}
+                            onChange={(e: any) =>
+                              setEditedPartData((prevData: any) => ({
+                                ...prevData,
+                                model: e.target.value,
+                              }))
+                            }
+                          />
+                        </Td>
+                        <Td>
+                          <input
+                            value={editedPartData?.description || ''}
+                            onChange={(e: any) =>
+                              setEditedPartData((prevData: any) => ({
+                                ...prevData,
+                                description: e.target.value,
+                              }))
+                            }
+                          />
+                        </Td>
+                        <Td>
+                          <input
+                            value={editedPartData?.bin || ''}
+                            onChange={(e: any) =>
+                              setEditedPartData((prevData: any) => ({
+                                ...prevData,
+                                bin: e.target.value,
+                              }))
+                            }
+                          />
+                        </Td>
+                        <Td>
+                          <input
+                            value={editedPartData?.container || ''}
+                            onChange={(e: any) =>
+                              setEditedPartData((prevData: any) => ({
+                                ...prevData,
+                                container: e.target.value,
+                              }))
+                            }
+                          />
+                        </Td>
+                        <Td>
+                          <input
+                            value={editedPartData?.location || ''}
+                            onChange={(e: any) =>
+                              setEditedPartData((prevData: any) => ({
+                                ...prevData,
+                                location: e.target.value,
+                              }))
+                            }
+                          />
+                        </Td>
+                        <Td>
+                          <input
+                            type='number'
+                            value={editedPartData?.quantity || 0}
+                            onChange={(e: any) =>
+                              setEditedPartData((prevData: any) => ({
+                                ...prevData,
+                                quantity: parseInt(e.target.value),
+                              }))
+                            }
+                          />
+                        </Td>
+                        <Td>
+                          <input
+                            value={editedPartData?.tags.join(', ') || ''}
+                            onChange={(e: any) =>
+                              setEditedPartData((prevData: any) => ({
+                                ...prevData,
+                                tags: e.target.value
+                                  .split(',')
+                                  .map((tag: any) => tag.trim()),
+                              }))
+                            }
+                          />
+                        </Td>
+                        <Td>
+                          <IconButton
                             size='sm'
                             aria-label='Submit Edit'
                             icon={<CheckIcon />}
@@ -266,7 +378,7 @@ const PartsSearch: React.FC = () => {
                             _hover={{
                               backgroundColor: 'green.500',
                             }}
-                          /> */}
+                          />
                           <IconButton
                             size='sm'
                             aria-label='Cancel Edit'
@@ -332,7 +444,7 @@ const PartsSearch: React.FC = () => {
                             size='sm'
                             aria-label='Edit Part'
                             icon={<CheckIcon />}
-                            onClick={() => handleEditPart(part.id)}
+                            onClick={() => handleEditPart(part)}
                             _hover={{
                               backgroundColor: 'blue.500',
                             }}
