@@ -172,37 +172,37 @@ const PartsSearch: React.FC = () => {
     }
   }
 
-  const handleEditPart = (partId: string) => {
-    setEditingPart(partId)
-  }
+  // const handleEditPart = (partId: string) => {
+  //   setEditingPart(partId)
+  // }
 
   const handleCancelEdit = () => {
     setEditingPart(null)
   }
 
-  const handleUpdatePart = async (partId: string) => {
-    // Get the updated part data from the form (you can access it using refs, state, etc.)
-    const updatedPartData = {}
-
-    try {
-      await updatePartMutation({
-        variables: {
-          updatePartId: partId,
-          ...updatedPartData,
-        },
-      })
-
-      console.log('Updated part:', { partId })
-
-      // Clear the editing mode
-      setEditingPart(null)
-
-      // Refetch the data after the update mutation to update the table
-      refetch()
-    } catch (error) {
-      console.error('Error while updating the part')
-    }
-  }
+  // const handleUpdatePart = async (partId: string) => {
+  //   // Get the updated part data from the form (you can access it using refs, state, etc.)
+  //   const updatedPartData = {}
+  //
+  //   try {
+  //     await updatePartMutation({
+  //       variables: {
+  //         updatePartId: partId,
+  //         ...updatedPartData,
+  //       },
+  //     })
+  //
+  //     console.log('Updated part:', { partId })
+  //
+  //     // Clear the editing mode
+  //     setEditingPart(null)
+  //
+  //     // Refetch the data after the update mutation to update the table
+  //     refetch()
+  //   } catch (error) {
+  //     console.error('Error while updating the part')
+  //   }
+  // }
 
   return (
     <Center>
