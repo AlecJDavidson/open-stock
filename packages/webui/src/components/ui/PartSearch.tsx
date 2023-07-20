@@ -131,7 +131,7 @@ const PartsSearch: React.FC = () => {
 
   return (
     <Center>
-      <Box border='1px solid #ccc' p={4} borderRadius='md'>
+      <Box border='1px solid #ccc' p={4} borderRadius='md' maxWidth={'95%'}>
         <InputGroup mt={4}>
           <Input
             placeholder='Search for parts...'
