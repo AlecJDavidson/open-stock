@@ -2,7 +2,7 @@
   "name": "openstock",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "AlecJDavidson <alecjdavidson@outlook.com>",
+  "author": "AlecJDavidson",
   "license": "MIT",
   "private": true,
   "workspaces": [
