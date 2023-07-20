@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "start": "tsc && vite build && vite"
+    "start": "tsc && vite build && vite --host"
   },
   "dependencies": {
     "@apollo/client": "^3.7.17",
