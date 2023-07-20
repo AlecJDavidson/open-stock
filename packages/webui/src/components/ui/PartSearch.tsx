@@ -170,10 +170,10 @@ const PartsSearch: React.FC = () => {
 
   const [editedPartData, setEditedPartData] = useState<Part | null>(null)
 
-  const handleEditPart = (part: Part) => {
-    setEditedPartData({ ...part }) // Set the initial value for editedPartData
-    setEditingPart(part.id)
-  }
+  // const handleEditPart = (part: Part) => {
+  //   setEditedPartData({ ...part }) // Set the initial value for editedPartData
+  //   setEditingPart(part.id)
+  // }
 
   const handleCancelEdit = () => {
     setEditedPartData(null) // Reset the editedPartData state
