@@ -9,3 +9,18 @@ services:
       - .env
     volumes:
       - ./postgres/db/:/var/lib/postgresql/data/
+
+  server:
+    build:
+      context: ./packages/server/
+    depends_on:
+      - postgres
+    ports:
+      - 4000:4000 
+  webui:
+    build:
+      context: ./packages/webui/
+    depends_on:
+      - server
+    ports:
+      - 4173:4173 
