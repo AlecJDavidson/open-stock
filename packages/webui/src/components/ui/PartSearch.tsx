@@ -13,6 +13,8 @@ import {
   Thead,
   Tr,
   IconButton,
+  Stack,
+  VStack,
 } from '@chakra-ui/react';
 import { SearchIcon, AddIcon, MinusIcon, CloseIcon } from '@chakra-ui/icons';
 
@@ -24,7 +26,7 @@ import {
 import { Part } from '../../types/Part';
 
 const PartsSearch: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const { loading, data, refetch } = useQuery<{ partsBy: Part[] }>(
     SEARCH_PARTS,
     {
@@ -39,6 +41,29 @@ const PartsSearch: React.FC = () => {
     // Note: You can also debounce the search to avoid excessive requests.
     refetch({ search: searchQuery });
   }, [searchQuery, refetch]);
+
+  // Step 1: Add state for sorting
+  const [sorting, setSorting] = useState<{ column: string; direction: 'asc' | 'desc' }>({
+    column: 'name', // Default sorting column
+    direction: 'asc', // Default sorting direction
+  });
+
+  // Step 2: Function to handle sorting
+  const handleSort = (column: string) => {
+    setSorting((prevSorting) => ({
+      column,
+      direction: prevSorting.column === column && prevSorting.direction === 'asc' ? 'desc' : 'asc',
+    }));
+  };
+
+  // Step 3: Apply sorting to the table data
+  const sortedData = data?.partsBy.slice().sort((a: any, b: any) => {
+    if (sorting.direction === 'asc') {
+      return a[sorting.column].localeCompare(b[sorting.column]);
+    } else {
+      return b[sorting.column].localeCompare(a[sorting.column]);
+    }
+  });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
@@ -62,7 +87,9 @@ const PartsSearch: React.FC = () => {
           }) || { partsBy: [] };
 
           const updatedPartsBy = partsBy.map((part) =>
-            part.id === updatePart.id ? { ...part, quantity: updatePart.quantity } : part
+            part.id === updatePart.id
+              ? { ...part, quantity: updatePart.quantity }
+              : part,
           );
 
           cache.writeQuery({
@@ -96,7 +123,9 @@ const PartsSearch: React.FC = () => {
             }) || { partsBy: [] };
 
             const updatedPartsBy = partsBy.map((part) =>
-              part.id === updatePart.id ? { ...part, quantity: updatePart.quantity } : part
+              part.id === updatePart.id
+                ? { ...part, quantity: updatePart.quantity }
+                : part,
             );
 
             cache.writeQuery({
@@ -131,8 +160,8 @@ const PartsSearch: React.FC = () => {
 
   return (
     <Center>
-      <Box border='1px solid #ccc' p={4} borderRadius='md' maxWidth={'95%'}>
-        <InputGroup mt={4}>
+      <VStack spacing={4} maxWidth='95%' align='stretch'>
+        <InputGroup>
           <Input
             placeholder='Search for parts...'
             value={searchQuery}
@@ -142,72 +171,79 @@ const PartsSearch: React.FC = () => {
             <SearchIcon color='gray.300' cursor='pointer' />
           </InputRightElement>
         </InputGroup>
-        <Table variant='striped' size='md' mt={4}>
-          <Thead>
-            <Tr>
-              <Th>Name</Th>
-              <Th>Brand</Th>
-              <Th>Model</Th>
-              <Th>Description</Th>
-              <Th>Bin</Th>
-              <Th>Container</Th>
-              <Th>Location</Th>
-              <Th>Quantity</Th>
-              <Th>Tags</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {loading ? (
+        <Box border='1px solid #ccc' p={4} borderRadius='md' w='100%'>
+          <Table variant='striped' size='md'>
+            <Thead>
               <Tr>
-                <Td colSpan={10}>Loading...</Td>
+                {/* Step 3: Add onClick handlers for sorting */}
+                <Th onClick={() => handleSort('name')}>Name</Th>
+                <Th onClick={() => handleSort('brand')}>Brand</Th>
+                <Th onClick={() => handleSort('model')}>Model</Th>
+                <Th onClick={() => handleSort('description')}>Description</Th>
+                <Th onClick={() => handleSort('bin')}>Bin</Th>
+                <Th onClick={() => handleSort('container')}>Container</Th>
+                <Th onClick={() => handleSort('location')}>Location</Th>
+                <Th onClick={() => handleSort('quantity')}>Quantity</Th>
+                <Th onClick={() => handleSort('tags')}>Tags</Th>
+                <Th></Th>
               </Tr>
-            ) : (
-              data?.partsBy.map((part) => (
-                <Tr key={part.id}>
-                  <Td>{part.name}</Td>
-                  <Td>{part.brand}</Td>
-                  <Td>{part.model}</Td>
-                  <Td>{part.description}</Td>
-                  <Td>{part.bin}</Td>
-                  <Td>{part.container}</Td>
-                  <Td>{part.location}</Td>
-                  <Td>
-                    <IconButton
-                      size='sm'
-                      aria-label='Decrease Quantity'
-                      icon={<MinusIcon />}
-                      onClick={() =>
-                        handleDecreaseQuantity(part.id, part.quantity)
-                      }
-                    />
-                    &nbsp;{part.quantity}&nbsp;
-                    <IconButton
-                      size='sm'
-                      aria-label='Increase Quantity'
-                      icon={<AddIcon />}
-                      onClick={() =>
-                        handleIncreaseQuantity(part.id, part.quantity)
-                      }
-                    />
-                  </Td>
-                  <Td>{part.tags.join(', ')}</Td>
-                  <Td>
-                    <IconButton
-                      size='sm'
-                      aria-label='Delete Part'
-                      icon={<CloseIcon />}
-                      onClick={() => handleDeletePart(part.id)}
-                      _hover={{
-                        backgroundColor: 'red.500',
-                      }}
-                    />
-                  </Td>
+            </Thead>
+            <Tbody>
+              {/* Step 3: Use sortedData instead of data?.partsBy */}
+              {loading ? (
+                <Tr>
+                  <Td colSpan={10}>Loading...</Td>
                 </Tr>
-              ))
-            )}
-          </Tbody>
-        </Table>
-      </Box>
+              ) : (
+                sortedData?.map((part) => (
+                  <Tr key={part.id}>
+                    <Td>{part.name}</Td>
+                    <Td>{part.brand}</Td>
+                    <Td>{part.model}</Td>
+                    <Td>{part.description}</Td>
+                    <Td>{part.bin}</Td>
+                    <Td>{part.container}</Td>
+                    <Td>{part.location}</Td>
+                    <Td>
+                      <Stack direction='row' spacing={2} alignItems='center'>
+                        <IconButton
+                          size='sm'
+                          aria-label='Decrease Quantity'
+                          icon={<MinusIcon />}
+                          onClick={() => handleDecreaseQuantity(part.id, part.quantity)}
+                        />
+                        <Box>
+                          {part.quantity > 10
+                            ? part.quantity
+                            : part.quantity.toString().padStart(2, '0')}
+                        </Box>
+                        <IconButton
+                          size='sm'
+                          aria-label='Increase Quantity'
+                          icon={<AddIcon />}
+                          onClick={() => handleIncreaseQuantity(part.id, part.quantity)}
+                        />
+                      </Stack>
+                    </Td>
+                    <Td>{part.tags.join(', ')}</Td>
+                    <Td>
+                      <IconButton
+                        size='sm'
+                        aria-label='Delete Part'
+                        icon={<CloseIcon />}
+                        onClick={() => handleDeletePart(part.id)}
+                        _hover={{
+                          backgroundColor: 'red.500',
+                        }}
+                      />
+                    </Td>
+                  </Tr>
+                ))
+              )}
+            </Tbody>
+          </Table>
+        </Box>
+      </VStack>
     </Center>
   );
 };
