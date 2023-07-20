@@ -1,4 +1,3 @@
-
 # Use the official Node.js image as the base image
 FROM node:14-alpine
 
@@ -18,7 +17,7 @@ COPY . .
 RUN yarn build
 
 # Expose the port that your server listens on
-EXPOSE 4000 
+EXPOSE 4173 
 
 # Command to run your server
-CMD ["node", "./dist/src/index.js"]
+CMD ["vite preview"]
