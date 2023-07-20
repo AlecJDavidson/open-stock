@@ -4,7 +4,6 @@ import { CREATE_PART_MUTATION } from '../../../graphql/mutations/partMutations'
 import {
   Box,
   Button,
-  Center,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -84,9 +83,15 @@ const AddPartForm: React.FC = () => {
 
   return (
     <Box justifyContent={'center'} marginLeft={'1.5rem'}>
-      <Box border='1px solid #ccc' p={4} borderRadius='md' maxWidth={'100%'} maxHeight={'100rem'}>
+      <Box
+        border='1px solid #ccc'
+        p={4}
+        borderRadius='md'
+        maxWidth={'100%'}
+        maxHeight={'100%'}
+      >
         <form onSubmit={handleSubmit}>
-          <VStack spacing={4} align='stretch'>
+          <VStack spacing={3} align='stretch'>
             <FormControl isRequired>
               <FormLabel>Bin:</FormLabel>
               <Input

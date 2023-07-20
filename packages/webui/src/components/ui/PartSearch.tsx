@@ -16,7 +16,13 @@ import {
   Stack,
   VStack,
 } from '@chakra-ui/react'
-import { SearchIcon, AddIcon, MinusIcon, CloseIcon } from '@chakra-ui/icons'
+import {
+  SearchIcon,
+  AddIcon,
+  MinusIcon,
+  CloseIcon,
+  CheckIcon,
+} from '@chakra-ui/icons'
 
 import { SEARCH_PARTS } from '../../graphql/queries/partQueries'
 import {
@@ -41,6 +47,12 @@ const PartsSearch: React.FC = () => {
     // Note: You can also debounce the search to avoid excessive requests.
     refetch({ search: searchQuery })
   }, [searchQuery, refetch])
+
+  const [editingPart, setEditingPart] = useState<string | null>(null)
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value)
+  }
 
   // Step 1: Add state for sorting
   const [sorting, setSorting] = useState<{
@@ -70,10 +82,6 @@ const PartsSearch: React.FC = () => {
       return b[sorting.column].localeCompare(a[sorting.column])
     }
   })
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value)
-  }
 
   const handleIncreaseQuantity = async (
     partId: string,
@@ -164,9 +172,41 @@ const PartsSearch: React.FC = () => {
     }
   }
 
+  const handleEditPart = (partId: string) => {
+    setEditingPart(partId)
+  }
+
+  const handleCancelEdit = () => {
+    setEditingPart(null)
+  }
+
+  const handleUpdatePart = async (partId: string) => {
+    // Get the updated part data from the form (you can access it using refs, state, etc.)
+    const updatedPartData = {}
+
+    try {
+      await updatePartMutation({
+        variables: {
+          updatePartId: partId,
+          ...updatedPartData,
+        },
+      })
+
+      console.log('Updated part:', { partId })
+
+      // Clear the editing mode
+      setEditingPart(null)
+
+      // Refetch the data after the update mutation to update the table
+      refetch()
+    } catch (error) {
+      console.error('Error while updating the part')
+    }
+  }
+
   return (
     <Center>
-      <VStack spacing={4} maxWidth='97%' align='stretch'>
+      <VStack spacing={4} maxWidth='97%' maxHeight={'54.3rem'} align='stretch'>
         <InputGroup>
           <Input
             placeholder='Search for parts...'
@@ -183,12 +223,11 @@ const PartsSearch: React.FC = () => {
           borderRadius='md'
           w='100%'
           overflowY='auto'
-          h='53.1rem'
+          height={'100%'}
         >
           <Table variant='striped' size='md'>
             <Thead>
               <Tr>
-                {/* Step 3: Add onClick handlers for sorting */}
                 <Th onClick={() => handleSort('name')}>Name</Th>
                 <Th onClick={() => handleSort('brand')}>Brand</Th>
                 <Th onClick={() => handleSort('model')}>Model</Th>
@@ -202,7 +241,6 @@ const PartsSearch: React.FC = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {/* Step 3: Use sortedData instead of data?.partsBy */}
               {loading ? (
                 <Tr>
                   <Td colSpan={10}>Loading...</Td>
@@ -210,50 +248,98 @@ const PartsSearch: React.FC = () => {
               ) : (
                 sortedData?.map((part) => (
                   <Tr key={part.id}>
-                    <Td>{part.name}</Td>
-                    <Td>{part.brand}</Td>
-                    <Td>{part.model}</Td>
-                    <Td>{part.description}</Td>
-                    <Td>{part.bin}</Td>
-                    <Td>{part.container}</Td>
-                    <Td>{part.location}</Td>
-                    <Td>
-                      <Stack direction='row' spacing={2} alignItems='center'>
-                        <IconButton
-                          size='sm'
-                          aria-label='Decrease Quantity'
-                          icon={<MinusIcon />}
-                          onClick={() =>
-                            handleDecreaseQuantity(part.id, part.quantity)
-                          }
-                        />
-                        <Box>
-                          {part.quantity > 10
-                            ? part.quantity
-                            : part.quantity.toString().padStart(2, '0')}
-                        </Box>
-                        <IconButton
-                          size='sm'
-                          aria-label='Increase Quantity'
-                          icon={<AddIcon />}
-                          onClick={() =>
-                            handleIncreaseQuantity(part.id, part.quantity)
-                          }
-                        />
-                      </Stack>
-                    </Td>
-                    <Td>{part.tags.join(', ')}</Td>
-                    <Td>
-                      <IconButton
-                        size='sm'
-                        aria-label='Delete Part'
-                        icon={<CloseIcon />}
-                        onClick={() => handleDeletePart(part.id)}
-                        _hover={{
-                          backgroundColor: 'red.500',
-                        }}
-                      />
-                    </Td>
+                    {/* Step 4: Conditionally render row content based on edit mode */}
+                    {editingPart === part.id ? (
+                      <>
+                        {/* Render input fields for editing */}
+                        <Td>
+                          {/* Add input fields for editing */}
+                          {/* For example: <input value={part.name} onChange={(e) => updateName(e.target.value)} /> */}
+                        </Td>
+                        {/* Add similar TDs for other fields */}
+                        <Td>
+                          <IconButton
+                            size='sm'
+                            aria-label='Submit Edit'
+                            icon={<CheckIcon />}
+                            onClick={() => handleUpdatePart(part.id)}
+                            _hover={{
+                              backgroundColor: 'green.500',
+                            }}
+                          />
+                          <IconButton
+                            size='sm'
+                            aria-label='Cancel Edit'
+                            icon={<CloseIcon />}
+                            onClick={handleCancelEdit}
+                            _hover={{
+                              backgroundColor: 'red.500',
+                            }}
+                          />
+                        </Td>
+                      </>
+                    ) : (
+                      <>
+                        {/* Render normal row content */}
+                        <Td>{part.name}</Td>
+                        <Td>{part.brand}</Td>
+                        <Td>{part.model}</Td>
+                        <Td>{part.description}</Td>
+                        <Td>{part.bin}</Td>
+                        <Td>{part.container}</Td>
+                        <Td>{part.location}</Td>
+                        <Td>
+                          <Stack
+                            direction='row'
+                            spacing={2}
+                            alignItems='center'
+                          >
+                            <IconButton
+                              size='sm'
+                              aria-label='Decrease Quantity'
+                              icon={<MinusIcon />}
+                              onClick={() =>
+                                handleDecreaseQuantity(part.id, part.quantity)
+                              }
+                            />
+                            <Box>
+                              {part.quantity > 10
+                                ? part.quantity
+                                : part.quantity.toString().padStart(2, '0')}
+                            </Box>
+                            <IconButton
+                              size='sm'
+                              aria-label='Increase Quantity'
+                              icon={<AddIcon />}
+                              onClick={() =>
+                                handleIncreaseQuantity(part.id, part.quantity)
+                              }
+                            />
+                          </Stack>
+                        </Td>
+                        <Td>{part.tags.join(', ')}</Td>
+                        <Td>
+                          <IconButton
+                            size='sm'
+                            aria-label='Delete Part'
+                            icon={<CloseIcon />}
+                            onClick={() => handleDeletePart(part.id)}
+                            _hover={{
+                              backgroundColor: 'red.500',
+                            }}
+                          />
+                          <IconButton
+                            size='sm'
+                            aria-label='Edit Part'
+                            icon={<CheckIcon />}
+                            onClick={() => handleEditPart(part.id)}
+                            _hover={{
+                              backgroundColor: 'blue.500',
+                            }}
+                          />
+                        </Td>
+                      </>
+                    )}
                   </Tr>
                 ))
               )}
