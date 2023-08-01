@@ -6,7 +6,7 @@
 type Mutation {
   createPart(bin: String!, brand: String!, container: String!, description: String!, location: String!, model: String!, name: String!, quantity: Float!, tags: [String!]!): Part!
   deletePart(id: String!): Boolean!
-  updatePart(bin: String, brand: String, container: String, description: String, id: String!, location: String, model: String, name: String, quantity: Float, tags: [String!]): Part
+  updatePart(bin: String!, brand: String!, container: String!, description: String!, id: String!, location: String!, model: String!, name: String!, quantity: Float!, tags: [String!]): Part
 }
 
 type Part {

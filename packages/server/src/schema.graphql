@@ -28,3 +28,7 @@ type Mutation {
     tags: [String!]!
   ): Part!
 }
+
+type Mutation {
+  updatePart(updatePartId: ID!, input: PartInput!): Part
+}

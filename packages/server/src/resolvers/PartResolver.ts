@@ -1,26 +1,24 @@
-import { Query, Resolver, Arg, Mutation } from 'type-graphql'
-import { PrismaClient, Prisma } from '@prisma/client'
-import { Part, PartFilter } from '../types/Part'
-import { v4 as uuidv4 } from 'uuid'
-
-
+import { Query, Resolver, Arg, Mutation } from 'type-graphql';
+import { PrismaClient, Prisma } from '@prisma/client';
+import { Part, PartFilter } from '../types/Part';
+import { v4 as uuidv4 } from 'uuid';
 
 @Resolver()
 export class PartResolver {
-  private prisma: PrismaClient
+  private prisma: PrismaClient;
 
   constructor() {
-    this.prisma = new PrismaClient()
+    this.prisma = new PrismaClient();
   }
 
   @Query(() => [Part])
   async parts(): Promise<Part[]> {
-    return this.prisma.part.findMany()
+    return this.prisma.part.findMany();
   }
 
   @Query(() => Part, { nullable: true })
   async part(@Arg('id') id: string): Promise<Part | null> {
-    return this.prisma.part.findUnique({ where: { id } })
+    return this.prisma.part.findUnique({ where: { id } });
   }
 
   // @Query(() => [Part])
@@ -78,7 +76,7 @@ export class PartResolver {
           { tags: { has: search } },
         ],
       },
-    })
+    });
   }
 
   @Mutation(() => Part)
@@ -106,21 +104,21 @@ export class PartResolver {
         quantity,
         tags,
       },
-    })
+    });
   }
 
   @Mutation(() => Part, { nullable: true })
   async updatePart(
     @Arg('id') id: string,
-    @Arg('brand', { nullable: true }) brand?: string,
-    @Arg('name', { nullable: true }) name?: string,
-    @Arg('model', { nullable: true }) model?: string,
-    @Arg('description', { nullable: true }) description?: string,
-    @Arg('bin', { nullable: true }) bin?: string,
-    @Arg('container', { nullable: true }) container?: string,
-    @Arg('location', { nullable: true }) location?: string,
-    @Arg('quantity', { nullable: true }) quantity?: number,
-    @Arg('tags', () => [String], { nullable: true }) tags?: string[],
+    @Arg('brand', { nullable: false }) brand?: string,
+    @Arg('name', { nullable: false }) name?: string,
+    @Arg('model', { nullable: false }) model?: string,
+    @Arg('description', { nullable: false }) description?: string,
+    @Arg('bin', { nullable: false }) bin?: string,
+    @Arg('container', { nullable: false }) container?: string,
+    @Arg('location', { nullable: false }) location?: string,
+    @Arg('quantity', { nullable: false }) quantity?: number,
+    @Arg('tags', () => [String], { nullable: true}) tags?: string[],
   ): Promise<Part | null> {
     return this.prisma.part.update({
       where: { id },
@@ -135,12 +133,12 @@ export class PartResolver {
         quantity,
         tags,
       },
-    })
+    });
   }
 
   @Mutation(() => Boolean)
   async deletePart(@Arg('id') id: string): Promise<boolean> {
-    const deleteResult = await this.prisma.part.delete({ where: { id } })
-    return Boolean(deleteResult)
+    const deleteResult = await this.prisma.part.delete({ where: { id } });
+    return Boolean(deleteResult);
   }
 }

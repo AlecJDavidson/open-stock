@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { useQuery, useMutation } from '@apollo/client'
+import React, { useState, useEffect } from 'react';
+import { useQuery, useMutation } from '@apollo/client';
 import {
   Box,
   Center,
@@ -15,49 +15,49 @@ import {
   IconButton,
   Stack,
   VStack,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 import {
   SearchIcon,
   AddIcon,
   MinusIcon,
   CloseIcon,
   CheckIcon,
-} from '@chakra-ui/icons'
+} from '@chakra-ui/icons';
 
-import { SEARCH_PARTS } from '../../graphql/queries/partQueries'
+import { SEARCH_PARTS } from '../../graphql/queries/partQueries';
 import {
   UPDATE_PART_MUTATION,
   DELETE_PART_MUTATION,
-} from '../../graphql/mutations/partMutations'
-import { Part } from '../../types/Part'
+} from '../../graphql/mutations/partMutations';
+import { Part } from '../../types/Part';
 
 const PartsSearch: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState<string>('')
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const { loading, data, refetch } = useQuery<{ partsBy: Part[] }>(
     SEARCH_PARTS,
     {
       variables: { search: searchQuery },
     },
-  )
-  const [updatePartMutation] = useMutation(UPDATE_PART_MUTATION)
-  const [deletePartMutation] = useMutation(DELETE_PART_MUTATION)
+  );
+  const [updatePartMutation] = useMutation(UPDATE_PART_MUTATION);
+  const [deletePartMutation] = useMutation(DELETE_PART_MUTATION);
 
   useEffect(() => {
     // Trigger the search query whenever the searchQuery state changes
     // Note: You can also debounce the search to avoid excessive requests.
-    refetch({ search: searchQuery })
-  }, [searchQuery, refetch])
+    refetch({ search: searchQuery });
+  }, [searchQuery, refetch]);
 
-  const [editingPart, setEditingPart] = useState<string | null>(null)
+  const [editingPart, setEditingPart] = useState<string | null>(null);
 
   // Step 1: Add state for sorting
   const [sorting, setSorting] = useState<{
-    column: string
-    direction: 'asc' | 'desc'
+    column: string;
+    direction: 'asc' | 'desc';
   }>({
     column: 'name', // Default sorting column
     direction: 'asc', // Default sorting direction
-  })
+  });
 
   // Step 2: Function to handle sorting
   const handleSort = (column: string) => {
@@ -67,24 +67,24 @@ const PartsSearch: React.FC = () => {
         prevSorting.column === column && prevSorting.direction === 'asc'
           ? 'desc'
           : 'asc',
-    }))
-  }
+    }));
+  };
 
   // Step 3: Apply sorting to the table data
   const sortedData = data?.partsBy.slice().sort((a: any, b: any) => {
     if (sorting.direction === 'asc') {
-      return a[sorting.column].localeCompare(b[sorting.column])
+      return a[sorting.column].localeCompare(b[sorting.column]);
     } else {
-      return b[sorting.column].localeCompare(a[sorting.column])
+      return b[sorting.column].localeCompare(a[sorting.column]);
     }
-  })
+  });
 
   const handleIncreaseQuantity = async (
     partId: string,
     currentQuantity: number,
   ) => {
     try {
-      const updatedQuantity = currentQuantity + 1
+      const updatedQuantity = currentQuantity + 1;
       await updatePartMutation({
         variables: {
           updatePartId: partId,
@@ -94,25 +94,25 @@ const PartsSearch: React.FC = () => {
           const { partsBy } = cache.readQuery<{ partsBy: Part[] }>({
             query: SEARCH_PARTS,
             variables: { search: searchQuery },
-          }) || { partsBy: [] }
+          }) || { partsBy: [] };
 
           const updatedPartsBy = partsBy.map((part) =>
             part.id === updatePart.id
               ? { ...part, quantity: updatePart.quantity }
               : part,
-          )
+          );
 
           cache.writeQuery({
             query: SEARCH_PARTS,
             variables: { search: searchQuery },
             data: { partsBy: updatedPartsBy },
-          })
+          });
         },
-      })
+      });
     } catch (error) {
-      console.error('Error while updating the quantity')
+      console.error('Error while updating the quantity');
     }
-  }
+  };
 
   const handleDecreaseQuantity = async (
     partId: string,
@@ -120,7 +120,7 @@ const PartsSearch: React.FC = () => {
   ) => {
     try {
       if (currentQuantity > 0) {
-        const updatedQuantity = currentQuantity - 1
+        const updatedQuantity = currentQuantity - 1;
         await updatePartMutation({
           variables: {
             updatePartId: partId,
@@ -130,26 +130,26 @@ const PartsSearch: React.FC = () => {
             const { partsBy } = cache.readQuery<{ partsBy: Part[] }>({
               query: SEARCH_PARTS,
               variables: { search: searchQuery },
-            }) || { partsBy: [] }
+            }) || { partsBy: [] };
 
             const updatedPartsBy = partsBy.map((part) =>
               part.id === updatePart.id
                 ? { ...part, quantity: updatePart.quantity }
                 : part,
-            )
+            );
 
             cache.writeQuery({
               query: SEARCH_PARTS,
               variables: { search: searchQuery },
               data: { partsBy: updatedPartsBy },
-            })
+            });
           },
-        })
+        });
       }
     } catch (error) {
-      console.error('Error while updating the quantity')
+      console.error('Error while updating the quantity');
     }
-  }
+  };
 
   const handleDeletePart = async (partId: string) => {
     try {
@@ -157,68 +157,32 @@ const PartsSearch: React.FC = () => {
         variables: {
           deletePartId: partId,
         },
-      })
+      });
 
-      console.log('Deleted part:', { partId })
+      console.log('Deleted part:', { partId });
 
       // Refetch the data after the delete mutation to update the table
-      refetch()
+      refetch();
     } catch (error) {
-      console.error('Error while deleting the part')
+      console.error('Error while deleting the part');
     }
-  }
+  };
 
-  const [editedPartData, setEditedPartData] = useState<Part | null>(null)
+  const [editedPartData, setEditedPartData] = useState<Part | null>(null);
 
-  // const handleEditPart = (part: Part) => {
-  //   setEditedPartData({ ...part }) // Set the initial value for editedPartData
-  //   setEditingPart(part.id)
-  // }
+  const handleEditPart = (part: Part) => {
+    console.log('edit part clicked');
+    console.log(part);
+    // setEditedPartData({ ...part }); // Set the initial value for editedPartData
+  };
 
   const handleCancelEdit = () => {
-    setEditedPartData(null) // Reset the editedPartData state
-    setEditingPart(null)
-  }
+    console.log('cancel edit clicked');
+  };
 
-  const handleUpdatePart = async (partId: string) => {
-    try {
-      if (!editedPartData) return // Add a check to make sure editedPartData exists
-
-      await updatePartMutation({
-        variables: {
-          updatePartId: partId,
-          ...editedPartData, // Spread the editedPartData to update the part fields
-        },
-        update(cache, { data: { updatePart } }) {
-          const { partsBy } = cache.readQuery<{ partsBy: Part[] }>({
-            query: SEARCH_PARTS,
-            variables: { search: searchQuery },
-          }) || { partsBy: [] }
-
-          const updatedPartsBy = partsBy.map((part) =>
-            part.id === updatePart.id ? { ...updatePart } : part,
-          )
-
-          cache.writeQuery({
-            query: SEARCH_PARTS,
-            variables: { search: searchQuery },
-            data: { partsBy: updatedPartsBy },
-          })
-        },
-      })
-
-      console.log('Updated part:', { partId })
-
-      // Clear the editing mode and reset the editedPartData state
-      setEditingPart(null)
-      setEditedPartData(null)
-
-      // Refetch the data after the update mutation to update the table
-      refetch()
-    } catch (error) {
-      console.error('Error while updating the part', error)
-    }
-  }
+  const handleUpdatePart = (part: Part) => {
+    console.log(part);
+  };
 
   return (
     <Center>
@@ -374,7 +338,7 @@ const PartsSearch: React.FC = () => {
                             size='sm'
                             aria-label='Submit Edit'
                             icon={<CheckIcon />}
-                            onClick={() => handleUpdatePart(part.id)}
+                            onClick={() => handleUpdatePart(part)}
                             _hover={{
                               backgroundColor: 'green.500',
                             }}
@@ -440,15 +404,15 @@ const PartsSearch: React.FC = () => {
                               backgroundColor: 'red.500',
                             }}
                           />
-                          {/*<IconButton
+                          <IconButton
                             size='sm'
                             aria-label='Edit Part'
                             icon={<CheckIcon />}
                             onClick={() => handleEditPart(part)}
                             _hover={{
-                              backgroundColor: 'blue.500',
+                              backgroundColor: 'orange.500',
                             }}
-                          />*/}
+                          />
                         </Td>
                       </>
                     )}
@@ -460,7 +424,7 @@ const PartsSearch: React.FC = () => {
         </Box>
       </VStack>
     </Center>
-  )
-}
+  );
+};
 
-export default PartsSearch
+export default PartsSearch;
