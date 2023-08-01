@@ -9,7 +9,7 @@ start_docker_compose() {
 # Function to run yarn start for webui
 start_webui() {
   echo "Starting webui..."
-  yarn webui:start
+  yarn webui:start --host
 }
 
 # Function to run yarn start for server
