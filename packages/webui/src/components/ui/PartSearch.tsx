@@ -23,12 +23,10 @@ import {
   CloseIcon,
   CheckIcon,
 } from '@chakra-ui/icons';
+import DeleteButton from './buttons/DeletePart';
 
 import { SEARCH_PARTS } from '../../graphql/queries/partQueries';
-import {
-  UPDATE_PART_MUTATION,
-  DELETE_PART_MUTATION,
-} from '../../graphql/mutations/partMutations';
+import { UPDATE_PART_MUTATION } from '../../graphql/mutations/partMutations';
 import { Part } from '../../types/Part';
 
 const PartsSearch: React.FC = () => {
@@ -40,7 +38,6 @@ const PartsSearch: React.FC = () => {
     },
   );
   const [updatePartMutation] = useMutation(UPDATE_PART_MUTATION);
-  const [deletePartMutation] = useMutation(DELETE_PART_MUTATION);
 
   useEffect(() => {
     // Trigger the search query whenever the searchQuery state changes
@@ -148,23 +145,6 @@ const PartsSearch: React.FC = () => {
       }
     } catch (error) {
       console.error('Error while updating the quantity');
-    }
-  };
-
-  const handleDeletePart = async (partId: string) => {
-    try {
-      await deletePartMutation({
-        variables: {
-          deletePartId: partId,
-        },
-      });
-
-      console.log('Deleted part:', { partId });
-
-      // Refetch the data after the delete mutation to update the table
-      refetch();
-    } catch (error) {
-      console.error('Error while deleting the part');
     }
   };
 
@@ -395,15 +375,7 @@ const PartsSearch: React.FC = () => {
                         </Td>
                         <Td>{part.tags.join(', ')}</Td>
                         <Td>
-                          <IconButton
-                            size='sm'
-                            aria-label='Delete Part'
-                            icon={<CloseIcon />}
-                            onClick={() => handleDeletePart(part.id)}
-                            _hover={{
-                              backgroundColor: 'red.500',
-                            }}
-                          />
+                          <DeleteButton partId={part.id} />
                           <IconButton
                             size='sm'
                             aria-label='Edit Part'
