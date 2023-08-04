@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql } from '@apollo/client';
 
 export const CREATE_PART_MUTATION = gql`
   mutation CreatePart(
@@ -34,19 +34,49 @@ export const CREATE_PART_MUTATION = gql`
       tags
     }
   }
-`
+`;
 
 export const UPDATE_PART_MUTATION = gql`
-  mutation UpdatePartMutation($updatePartId: String!, $quantity: Float) {
-    updatePart(id: $updatePartId, quantity: $quantity) {
+  mutation UpdatePartMutation(
+    $quantity: Float!
+    $location: String!
+    $container: String!
+    $bin: String!
+    $description: String!
+    $model: String!
+    $name: String!
+    $brand: String!
+    $tags: [String!]
+    $updatePartId: String!
+  ) {
+    updatePart(
+      quantity: $quantity
+      location: $location
+      container: $container
+      bin: $bin
+      description: $description
+      model: $model
+      name: $name
+      brand: $brand
+      tags: $tags
+      id: $updatePartId
+    ) {
       id
+      name
+      brand
+      model
+      description
+      bin
+      container
+      location
       quantity
+      tags
     }
   }
-`
+`;
 
 export const DELETE_PART_MUTATION = gql`
   mutation DeletePart($deletePartId: String!) {
     deletePart(id: $deletePartId)
   }
-`
+`;

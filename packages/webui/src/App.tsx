@@ -1,22 +1,20 @@
-import React from 'react'
-import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
-import { ChakraProvider } from '@chakra-ui/react'
-import Home from './components/views/Home'
-const apollo_uri: string = import.meta.env.VITE_APOLLO_URI as string
-
-const client: ApolloClient<unknown> = new ApolloClient({
-  uri: apollo_uri,
-  cache: new InMemoryCache(),
-})
+import React from 'react';
+import { ApolloProvider } from '@apollo/client';
+import { ChakraProvider } from '@chakra-ui/react';
+import Home from './components/views/Home';
+import client from './apollo/client';
+import PartListContextProvider from './context/PartListContextProvider';
 
 const App: React.FC = () => {
   return (
-    <ChakraProvider>
-      <ApolloProvider client={client}>
-        <Home />
-      </ApolloProvider>
-    </ChakraProvider>
-  )
-}
+    <PartListContextProvider>
+      <ChakraProvider>
+        <ApolloProvider client={client}>
+          <Home />
+        </ApolloProvider>
+      </ChakraProvider>
+    </PartListContextProvider>
+  );
+};
 
-export default App
+export default App;

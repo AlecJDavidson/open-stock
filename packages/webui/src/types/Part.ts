@@ -1,12 +1,23 @@
 export type Part = {
-  id: string
-  brand: string
-  name: string
-  model: string
-  description: string
-  bin: string
-  container: string
-  location: string
-  quantity: number
-  tags: string[]
-}
+  id: string;
+  brand: string;
+  name: string;
+  model: string;
+  description: string;
+  bin: string;
+  container: string;
+  location: string;
+  quantity: number;
+  tags: string[];
+};
+
+export type Parts = {
+  parts: Part[];
+  setParts: Part[];
+};
+
+export type PartListState = {
+  parts: Part[];
+  addPart: () => {};
+  deletePart: () => {};
+};

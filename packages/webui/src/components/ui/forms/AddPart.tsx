@@ -1,6 +1,8 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react'
-import { useMutation } from '@apollo/client'
-import { CREATE_PART_MUTATION } from '../../../graphql/mutations/partMutations'
+import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { usePartListContext } from '../../../context/PartListContext';
+import { Parts } from '../../../types/Part';
+import { useMutation } from '@apollo/client';
+import { CREATE_PART_MUTATION } from '../../../graphql/mutations/partMutations';
 import {
   Box,
   Button,
@@ -10,18 +12,18 @@ import {
   Input,
   Stack,
   VStack,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 
 interface PartData {
-  bin: string
-  brand: string
-  container: string
-  description: string
-  location: string
-  model: string
-  name: string
-  quantity: number
-  tags: string[]
+  bin: string;
+  brand: string;
+  container: string;
+  description: string;
+  location: string;
+  model: string;
+  name: string;
+  quantity: number;
+  tags: string[];
 }
 
 const AddPartForm: React.FC = () => {
@@ -35,51 +37,56 @@ const AddPartForm: React.FC = () => {
     name: '',
     quantity: 0,
     tags: [],
-  }
+  };
 
-  const [formData, setFormData] = useState<PartData>(initialFormData)
-  const [createPart] = useMutation(CREATE_PART_MUTATION)
+  const [formData, setFormData] = useState<PartData>(initialFormData);
+  const [createPart] = useMutation(CREATE_PART_MUTATION);
+  const { parts, setParts }: Parts = usePartListContext();
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
 
     // Convert the quantity field to a number, or set it to 0 if the input is not a valid number
-    const parsedValue = name === 'quantity' ? parseFloat(value) || 0 : value
+    const parsedValue = name === 'quantity' ? parseFloat(value) || 0 : value;
 
     setFormData({
       ...formData,
       [name]: parsedValue,
-    })
-  }
+    });
+  };
 
   const handleTagsChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target
-    const tagsArray = value.split(',').map((tag) => tag.trim())
+    const { value } = e.target;
+    const tagsArray = value.split(',').map((tag) => tag.trim());
     setFormData({
       ...formData,
       tags: tagsArray,
-    })
-  }
+    });
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
+
     createPart({
       variables: formData,
     })
       .then((response) => {
-        console.log('Part added successfully:', response.data.createPart)
-        setFormData(initialFormData) // Reset the form after successful submission
+        console.log('Part added successfully:', response.data.createPart);
+        console.log(formData);
+        setParts([...parts, formData]);
+
+        setFormData(initialFormData); // Reset the form after successful submission
       })
       .catch((error) => {
-        console.error('Error adding part:', error)
-      })
-  }
+        console.error('Error adding part:', error);
+      });
+  };
 
   const handleCancel = () => {
-    setFormData(initialFormData) // Reset the form on cancel
-  }
+    setFormData(initialFormData); // Reset the form on cancel
+  };
 
   return (
     <Box justifyContent={'center'} marginLeft={'1.5rem'}>
@@ -193,7 +200,7 @@ const AddPartForm: React.FC = () => {
         </form>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default AddPartForm
+export default AddPartForm;
