@@ -28,4 +28,4 @@ RUN yarn build
 EXPOSE 5173 
 
 # Command to run your server
-CMD ["yarn", "start"]
+CMD ["yarn", "dev"]
