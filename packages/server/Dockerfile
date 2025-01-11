@@ -19,9 +19,9 @@ RUN yarn
 RUN npm run build
 
 # DB has to be running for this to work
-RUN yarn generate
-RUN yarn migrate -n "init"
-RUN yarn seed:db
+# RUN yarn generate
+# RUN yarn migrate -n "init"
+# RUN yarn seed:db
 
 # Expose the port the app runs on
 EXPOSE 3050 
