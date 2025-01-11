@@ -2,8 +2,6 @@ services:
   database:
     image: 'postgres:latest'
     network_mode: host
-    ports:
-      - '5432:5432'
     env_file:
       - .env
     volumes:
@@ -21,8 +19,6 @@ services:
     build:
       context: ./packages/webui/
       dockerfile: Dockerfile
-    ports:
-      - '3051:3051'
     env_file:
       - .env
 
@@ -31,8 +27,6 @@ services:
       context: ./packages/server/
       dockerfile: Dockerfile
     network_mode: host
-    ports:
-      - '3050:3050'
     env_file:
       - .env
     depends_on:
