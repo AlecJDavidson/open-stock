@@ -1,29 +1,40 @@
-version: '3'
-
 services:
-  webui:
-    depends_on:
-      - server
-    build:
-      context: ./packages/webui/
-    ports:
-      - 5173:5173
-
-  server:
-    depends_on:
-      - database
-    build:
-      context: ./packages/server/
-    ports:
-      - 4000:4000
-    env_file:
-      - .env
-
   database:
     image: 'postgres:latest'
+    network_mode: host
     ports:
-      - 5432:5432
+      - '5432:5432'
     env_file:
       - .env
     volumes:
       - ./postgres/db/:/var/lib/postgresql/data/
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U admin']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  webui:
+    depends_on:
+      - server
+    network_mode: host
+    build:
+      context: ./packages/webui/
+      dockerfile: Dockerfile
+    ports:
+      - '3051:3051'
+    env_file:
+      - .env
+
+  server:
+    build:
+      context: ./packages/server/
+      dockerfile: Dockerfile
+    network_mode: host
+    ports:
+      - '3050:3050'
+    env_file:
+      - .env
+    depends_on:
+      database:
+        condition: service_healthy
