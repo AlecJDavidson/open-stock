@@ -14,7 +14,7 @@ const partData = [
     location: 'closet',
     quantity: 75,
     tags: ['power', 'switch'],
-    __typename: 'Part',
+    
   },
   {
     id: '47b66089-0dff-43a7-845d-1dd104b98168',
@@ -28,7 +28,7 @@ const partData = [
     location: 'closet',
     quantity: 68,
     tags: ['tact-switch', 'button'],
-    __typename: 'Part',
+    
   },
   {
     id: '049f8eb7-79eb-463d-87fb-ba66b578753d',
@@ -42,7 +42,7 @@ const partData = [
     location: 'closet',
     quantity: 30,
     tags: ['tact-switch', 'button'],
-    __typename: 'Part',
+    
   },
   {
     id: '421c4fb9-9d62-4b3f-88db-11e96da4402d',
@@ -55,7 +55,7 @@ const partData = [
     location: 'closet',
     quantity: 12,
     tags: ['electrical', 'led', 'light'],
-    __typename: 'Part',
+    
   },
   {
     id: 'bdf6a8d4-4d9f-46df-b66f-8e0bfa0c98f7',
@@ -68,7 +68,7 @@ const partData = [
     location: 'closet',
     quantity: 3,
     tags: ['electrical', 'diodes'],
-    __typename: 'Part',
+    
   },
   {
     id: '48dcc9be-b8e0-44b6-884b-cd20fa84a1e2',
@@ -81,7 +81,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['electrical', 'led', 'light'],
-    __typename: 'Part',
+    
   },
   {
     id: 'd9ddd857-c8b8-4706-9329-0d593fa002be',
@@ -94,7 +94,7 @@ const partData = [
     location: 'closet',
     quantity: 11,
     tags: ['tact-switch', 'rubber', 'dome'],
-    __typename: 'Part',
+    
   },
   {
     id: '4ba06518-8700-4f5e-a4fc-f35db0f20fab',
@@ -107,7 +107,7 @@ const partData = [
     location: 'closet',
     quantity: 13,
     tags: ['tact-switch', 'button'],
-    __typename: 'Part',
+    
   },
   {
     id: 'ae146ead-7c6c-4562-8310-eda0a4891e24',
@@ -121,7 +121,7 @@ const partData = [
     location: 'closet',
     quantity: 0,
     tags: ['misc', 'hardware', 'nuts', 'bolts', 'washers', 'stand-offs'],
-    __typename: 'Part',
+    
   },
   {
     id: '9dc5758f-3439-40ad-8ae6-de603e63bd2d',
@@ -134,7 +134,7 @@ const partData = [
     location: 'closet',
     quantity: 6,
     tags: ['spring', 'compression', 'small'],
-    __typename: 'Part',
+    
   },
   {
     id: '328b779f-0a62-4f8c-988e-1c6a1eee2764',
@@ -148,7 +148,7 @@ const partData = [
     location: 'closet',
     quantity: 8,
     tags: ['radial', 'bearing'],
-    __typename: 'Part',
+    
   },
   {
     id: '5441baaa-d0a3-4daf-908f-bee05649b3b0',
@@ -162,7 +162,7 @@ const partData = [
     location: 'closet',
     quantity: 3,
     tags: ['radial', 'bearing', '608'],
-    __typename: 'Part',
+    
   },
   {
     id: 'b4bbef9a-d18e-48c7-81bc-78bfc7f5a1b1',
@@ -175,7 +175,7 @@ const partData = [
     location: 'closet',
     quantity: 62,
     tags: ['magnet'],
-    __typename: 'Part',
+    
   },
   {
     id: '66aa9a99-2e4d-4c50-9efb-e966f8f8de71',
@@ -188,7 +188,7 @@ const partData = [
     location: 'closet',
     quantity: 6,
     tags: ['misc', 'magnets'],
-    __typename: 'Part',
+    
   },
   {
     id: 'ca380494-b231-4c70-9820-88bd2c226918',
@@ -201,7 +201,7 @@ const partData = [
     location: 'closet',
     quantity: 2,
     tags: ['Yaxi', 'Earpads'],
-    __typename: 'Part',
+    
   },
   {
     id: '569bd881-8b65-4e2f-9fd9-fcf9eb6de90f',
@@ -215,7 +215,7 @@ const partData = [
     location: 'closet',
     quantity: 8,
     tags: ['Earpads'],
-    __typename: 'Part',
+    
   },
   {
     id: '4a9ddb7f-28d5-4db0-804f-965782e2518d',
@@ -229,7 +229,7 @@ const partData = [
     location: 'closet',
     quantity: 2,
     tags: ['Audio', 'Adapter'],
-    __typename: 'Part',
+    
   },
   {
     id: '14d76e41-0548-4d44-b066-d2374bec5a8d',
@@ -242,7 +242,7 @@ const partData = [
     location: 'closet',
     quantity: 0,
     tags: ['Misc', 'hardware', 'nuts', 'bolts'],
-    __typename: 'Part',
+    
   },
   {
     id: '165d4093-15be-4701-90a9-bc5dc11baaf9',
@@ -255,7 +255,7 @@ const partData = [
     location: 'closet',
     quantity: 0,
     tags: ['Misc', 'PC'],
-    __typename: 'Part',
+    
   },
   {
     id: 'f1c7474b-fcfa-4864-ab45-7e1b564079e8',
@@ -268,7 +268,7 @@ const partData = [
     location: 'closet',
     quantity: 2,
     tags: ['PC', 'thermal', 'paste'],
-    __typename: 'Part',
+    
   },
   {
     id: '921092ed-7026-48b2-9451-2ea9b5519c10',
@@ -281,7 +281,7 @@ const partData = [
     location: 'closet',
     quantity: 12,
     tags: ['electrical', 'crimps'],
-    __typename: 'Part',
+    
   },
   {
     id: '478aa450-64d2-40f8-9c73-ee3ad659761f',
@@ -294,7 +294,7 @@ const partData = [
     location: 'closet',
     quantity: 22,
     tags: ['electrical', 'ring', 'terminal'],
-    __typename: 'Part',
+    
   },
   {
     id: 'db1e49a5-8755-4c85-b8f0-fa8652872500',
@@ -307,7 +307,7 @@ const partData = [
     location: 'closet',
     quantity: 3,
     tags: ['electrical', 'quick', 'connector'],
-    __typename: 'Part',
+    
   },
   {
     id: 'e3c37702-ee5f-4ff9-830b-e7658c4d1966',
@@ -321,7 +321,7 @@ const partData = [
     location: 'closet',
     quantity: 2,
     tags: ['solenoid'],
-    __typename: 'Part',
+    
   },
   {
     id: 'f8373f08-a9e4-442a-a88f-67e8af7a713f',
@@ -334,7 +334,7 @@ const partData = [
     location: 'closet',
     quantity: 6,
     tags: ['electric', 'motor'],
-    __typename: 'Part',
+    
   },
   {
     id: 'e350e54e-9e8e-4290-8104-2de1d62be14a',
@@ -347,7 +347,7 @@ const partData = [
     location: 'closet',
     quantity: 6,
     tags: ['stepper', 'motor'],
-    __typename: 'Part',
+    
   },
   {
     id: '2e2f515b-f2bd-4594-8a03-8f3fd5d5271d',
@@ -360,7 +360,7 @@ const partData = [
     location: 'closet',
     quantity: 6,
     tags: ['motor', 'driver', 'stepper'],
-    __typename: 'Part',
+    
   },
   {
     id: '0294ba92-208b-4ce0-a753-24f8acef0316',
@@ -374,7 +374,7 @@ const partData = [
     location: 'closet',
     quantity: 75,
     tags: ['electrical', 'resistor'],
-    __typename: 'Part',
+    
   },
   {
     id: '956691de-182b-421d-bde4-657b1945e379',
@@ -387,7 +387,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['electrical', 'led', 'light'],
-    __typename: 'Part',
+    
   },
   {
     id: 'fdba57a9-5d4e-43f0-87ae-1d76d09be0e5',
@@ -401,7 +401,7 @@ const partData = [
     location: 'closet',
     quantity: 2,
     tags: ['Servo'],
-    __typename: 'Part',
+    
   },
   {
     id: '4cb3c155-4afc-4df3-ae06-19eb1139e29a',
@@ -415,7 +415,7 @@ const partData = [
     location: 'closet',
     quantity: 6,
     tags: ['electrical', 'power'],
-    __typename: 'Part',
+    
   },
   {
     id: 'a5c7bf4c-18ff-45fb-830a-e7a6bc8e2bb6',
@@ -428,7 +428,7 @@ const partData = [
     location: 'closet',
     quantity: 2,
     tags: ['electrical', 'motor'],
-    __typename: 'Part',
+    
   },
   {
     id: 'c22df567-f4e6-4076-834d-860db4192189',
@@ -441,7 +441,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['screen'],
-    __typename: 'Part',
+    
   },
   {
     id: '16d08408-c5a0-42dc-8ccf-bb27565f8895',
@@ -454,7 +454,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['screen'],
-    __typename: 'Part',
+    
   },
   {
     id: 'bebf9c11-7a88-4502-9fe9-cc65510ad149',
@@ -467,7 +467,7 @@ const partData = [
     location: 'closet',
     quantity: 7,
     tags: ['electrical', 'motor', 'controller', 'ic'],
-    __typename: 'Part',
+    
   },
   {
     id: '8b1c2439-5b31-4311-8c25-945cb39aa1d3',
@@ -480,7 +480,7 @@ const partData = [
     location: 'closet',
     quantity: 2,
     tags: ['servo'],
-    __typename: 'Part',
+    
   },
   {
     id: '41f7b2ee-7bac-4873-805a-c094e4e5558a',
@@ -493,7 +493,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['mp3', 'player'],
-    __typename: 'Part',
+    
   },
   {
     id: 'c177141d-7a0c-4d70-84e1-206c460e8eb6',
@@ -506,7 +506,7 @@ const partData = [
     location: 'closet',
     quantity: 2,
     tags: ['bluetooth', 'controller'],
-    __typename: 'Part',
+    
   },
   {
     id: '1d03ff2c-33f5-4fa9-a349-dbdd46f7f294',
@@ -519,7 +519,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['psp', 'game', 'analog', 'stick'],
-    __typename: 'Part',
+    
   },
   {
     id: '9231bb2a-7a89-4379-ac64-7a4fba30e0e6',
@@ -532,7 +532,7 @@ const partData = [
     location: 'closet',
     quantity: 4,
     tags: ['usb', 'c', 'breakout', 'power', 'charging'],
-    __typename: 'Part',
+    
   },
   {
     id: 'd57f7344-d638-45b4-9e7d-b77b8d499a7b',
@@ -545,7 +545,7 @@ const partData = [
     location: 'closet',
     quantity: 2,
     tags: ['usb', 'a', 'power', 'charging'],
-    __typename: 'Part',
+    
   },
   {
     id: '4848fcb5-bf32-495c-9327-73b8a49dc783',
@@ -559,7 +559,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['ftdi', 'programmer', 'adapter', 'serial'],
-    __typename: 'Part',
+    
   },
   {
     id: '285ae873-d861-468b-b5fc-2193b82d38e3',
@@ -573,7 +573,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['adapter', 'serial'],
-    __typename: 'Part',
+    
   },
   {
     id: '6203057d-39c6-4213-9e68-d36b50ee95c7',
@@ -587,7 +587,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['gamecube', 'adapter'],
-    __typename: 'Part',
+    
   },
   {
     id: 'cc2cac72-758b-46bc-93b4-97b959065e46',
@@ -600,7 +600,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['gamecube', 'modchip'],
-    __typename: 'Part',
+    
   },
   {
     id: '9cf5bdab-9298-4040-8fbb-a7cd0708da2e',
@@ -614,7 +614,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['audio', 'amp', 'mono'],
-    __typename: 'Part',
+    
   },
   {
     id: '203e2317-b38f-43d8-8eb6-a05c6ef458da',
@@ -627,7 +627,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['toggle', 'switch', 'electrical', 'power'],
-    __typename: 'Part',
+    
   },
   {
     id: '4f6b8405-6225-4a24-acb6-96c66163391b',
@@ -640,7 +640,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['rocker', 'switch', 'electrical', 'power'],
-    __typename: 'Part',
+    
   },
   {
     id: 'e1611bd3-ba8d-4747-8619-e58f65a9c3ef',
@@ -653,7 +653,7 @@ const partData = [
     location: 'closet',
     quantity: 3,
     tags: ['button', 'electical'],
-    __typename: 'Part',
+    
   },
   {
     id: '436ee303-6d4f-42c7-8f36-72298fb43d22',
@@ -666,7 +666,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['rocker', 'switch', 'electrical', 'power'],
-    __typename: 'Part',
+    
   },
   {
     id: '0bd75f48-cbe9-4a22-afd1-bb8cf5136225',
@@ -679,7 +679,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['wifi', 'antenna'],
-    __typename: 'Part',
+    
   },
   {
     id: 'cefc42b1-f8cb-4ea9-9995-1405a7d96fcd',
@@ -692,7 +692,7 @@ const partData = [
     location: 'closet',
     quantity: 7,
     tags: ['heatsinks', 'cooling'],
-    __typename: 'Part',
+    
   },
   {
     id: '7917e9ad-eb9d-4a9a-8a7d-dd28baf969b7',
@@ -705,7 +705,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['speaker', 'audio'],
-    __typename: 'Part',
+    
   },
   {
     id: 'e417bcfb-bf79-441b-9d01-67d67be93902',
@@ -718,7 +718,7 @@ const partData = [
     location: 'closet',
     quantity: 12,
     tags: ['usb', 'c', 'breakout', 'power', 'charging'],
-    __typename: 'Part',
+    
   },
   {
     id: 'b8483f15-0d4a-4ce8-87e0-ed20c062b499',
@@ -731,7 +731,7 @@ const partData = [
     location: 'closet',
     quantity: 0,
     tags: ['misc', 'servo', 'adapters'],
-    __typename: 'Part',
+    
   },
   {
     id: '9f0f4986-1e76-4152-b6c2-26d5664f6c72',
@@ -744,7 +744,7 @@ const partData = [
     location: 'closet',
     quantity: 4,
     tags: ['electrical', 'resistor'],
-    __typename: 'Part',
+    
   },
   {
     id: '22579918-91a0-4562-9dc1-032eb431a35f',
@@ -758,7 +758,7 @@ const partData = [
     location: 'closet',
     quantity: 5,
     tags: ['charging', 'power', 'electrical'],
-    __typename: 'Part',
+    
   },
   {
     id: 'a56d9708-5ae3-4d49-9b33-fc1c06b32ada',
@@ -771,7 +771,7 @@ const partData = [
     location: 'closet',
     quantity: 4,
     tags: ['battery', 'power', 'electrical'],
-    __typename: 'Part',
+    
   },
   {
     id: '0ad84dc8-ec8f-4980-a96a-8b5823175ca1',
@@ -784,7 +784,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['battery', 'power', 'electrical'],
-    __typename: 'Part',
+    
   },
   {
     id: 'be331827-860f-44ab-8aac-a6547b0f9054',
@@ -798,7 +798,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['battery', 'power', 'electrical'],
-    __typename: 'Part',
+    
   },
   {
     id: 'f3b912a9-a8f7-40aa-992e-9daf4cb456a3',
@@ -812,7 +812,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['battery', 'power', 'electrical'],
-    __typename: 'Part',
+    
   },
   {
     id: '5fe22726-31f5-476e-96e5-e3b86f371bfd',
@@ -826,7 +826,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['battery', 'power', 'electrical'],
-    __typename: 'Part',
+    
   },
   {
     id: 'aff3cc8f-a0a3-402a-a2ec-69fad2a60d1b',
@@ -839,7 +839,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['battery', 'power', 'electrical'],
-    __typename: 'Part',
+    
   },
   {
     id: '4ece5a0f-53d5-4bfe-bc65-aabc54618d40',
@@ -852,7 +852,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['IDE', 'wire'],
-    __typename: 'Part',
+    
   },
   {
     id: '0b7aab88-e178-4e66-9a86-4608d46a29ca',
@@ -865,7 +865,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['misc', 'wire'],
-    __typename: 'Part',
+    
   },
   {
     id: '09eaeeb2-e0f5-4615-b59d-a8b016a58faa',
@@ -878,7 +878,7 @@ const partData = [
     location: 'closet',
     quantity: 3,
     tags: ['trrs'],
-    __typename: 'Part',
+    
   },
   {
     id: 'a3dfe546-94cb-41cf-adec-d3517f0f92fc',
@@ -891,7 +891,7 @@ const partData = [
     location: 'closet',
     quantity: 0,
     tags: ['misc', 'connectors'],
-    __typename: 'Part',
+    
   },
   {
     id: '1c20211e-843f-49d5-aa16-127726aa6c62',
@@ -904,7 +904,7 @@ const partData = [
     location: 'closet',
     quantity: 0,
     tags: ['barrel', 'jack', 'power', 'electrical'],
-    __typename: 'Part',
+    
   },
   {
     id: 'c993a8f4-3d06-41de-8bc7-67fde1722593',
@@ -917,7 +917,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['gamepad', 'buttons', 'pigrrl'],
-    __typename: 'Part',
+    
   },
   {
     id: '39556e5e-000c-45d0-bcf2-78e023a60132',
@@ -930,7 +930,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['electric', 'motor'],
-    __typename: 'Part',
+    
   },
   {
     id: '602621ea-46a8-487d-9f35-27ee9b0cca10',
@@ -943,7 +943,7 @@ const partData = [
     location: 'closet',
     quantity: 60,
     tags: ['metric', 'bolt', 'hardware', 'screws'],
-    __typename: 'Part',
+    
   },
   {
     id: 'f3d7b37a-ff99-4307-bca9-28e61db98147',
@@ -956,7 +956,7 @@ const partData = [
     location: 'closet',
     quantity: 60,
     tags: ['metric', 'bolt', 'hardware', 'screws'],
-    __typename: 'Part',
+    
   },
   {
     id: '82c5a28a-f194-4810-bb6d-0a470669918d',
@@ -969,7 +969,7 @@ const partData = [
     location: 'closet',
     quantity: 80,
     tags: ['metric', 'bolt', 'hardware', 'screws'],
-    __typename: 'Part',
+    
   },
   {
     id: '9446952a-e9f9-48c9-a56c-f8ebedf66c0c',
@@ -982,7 +982,7 @@ const partData = [
     location: 'closet',
     quantity: 60,
     tags: ['metric', 'bolt', 'hardware', 'screws'],
-    __typename: 'Part',
+    
   },
   {
     id: '47e1a91a-64de-42ca-b97d-127977dea0f8',
@@ -995,7 +995,7 @@ const partData = [
     location: 'closet',
     quantity: 60,
     tags: ['metric', 'bolt', 'hardware', 'screws'],
-    __typename: 'Part',
+    
   },
   {
     id: 'e9f7c6d6-2a37-45e1-9795-015c4ee0b819',
@@ -1008,7 +1008,7 @@ const partData = [
     location: 'closet',
     quantity: 60,
     tags: ['metric', 'bolt', 'hardware', 'screws'],
-    __typename: 'Part',
+    
   },
   {
     id: '2fb3c902-d4c8-4f82-a899-3d7ec67eb874',
@@ -1021,7 +1021,7 @@ const partData = [
     location: 'closet',
     quantity: 260,
     tags: ['metric', 'hardware', 'nut'],
-    __typename: 'Part',
+    
   },
   {
     id: '9cebfe8e-9941-4881-be58-376209b6e956',
@@ -1034,7 +1034,7 @@ const partData = [
     location: 'closet',
     quantity: 19,
     tags: ['flash', 'storage', 'sd', 'adapter'],
-    __typename: 'Part',
+    
   },
   {
     id: '7a81a76e-182e-42b8-a296-72a1b1e564f9',
@@ -1047,7 +1047,7 @@ const partData = [
     location: 'closet',
     quantity: 2,
     tags: ['flash', 'storage', 'micro', 'sd'],
-    __typename: 'Part',
+    
   },
   {
     id: '074f5c45-a9fc-42aa-b1c3-6ea9e57a694b',
@@ -1060,7 +1060,7 @@ const partData = [
     location: 'closet',
     quantity: 2,
     tags: ['flash', 'storage', 'micro', 'sd'],
-    __typename: 'Part',
+    
   },
   {
     id: '82357f33-1405-40ad-b095-4b84136e01b4',
@@ -1073,7 +1073,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['flash', 'storage', 'micro', 'sd'],
-    __typename: 'Part',
+    
   },
   {
     id: '18cc8779-3204-48f7-b66a-16618c12c695',
@@ -1086,7 +1086,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['flash', 'storage', 'micro', 'sd'],
-    __typename: 'Part',
+    
   },
   {
     id: 'cb5b2266-d746-47d3-aa93-a5b04d7d13f8',
@@ -1099,7 +1099,7 @@ const partData = [
     location: 'closet',
     quantity: 2,
     tags: ['sd', 'storage', 'fullsize', 'flash'],
-    __typename: 'Part',
+    
   },
   {
     id: 'ee835858-1c85-446b-b48e-9a2de826b4bf',
@@ -1112,7 +1112,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['flash', 'storage', 'micro', 'sd'],
-    __typename: 'Part',
+    
   },
   {
     id: '2838b8b4-3ce1-4cf8-b785-d419c087dfd5',
@@ -1125,7 +1125,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['flash', 'storage', 'micro', 'sd', 'sdhc'],
-    __typename: 'Part',
+    
   },
   {
     id: '2077cd9f-2174-47dd-a489-5bbb0ac6c97c',
@@ -1138,7 +1138,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['flash', 'storage', 'usb', 'drive'],
-    __typename: 'Part',
+    
   },
   {
     id: 'b79aeeb7-758e-4751-b52e-a9dea415b6b4',
@@ -1151,7 +1151,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['flash', 'storage', 'usb', 'drive'],
-    __typename: 'Part',
+    
   },
   {
     id: '6118e270-a773-481c-8d59-d4152049bc8d',
@@ -1164,7 +1164,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['flash', 'storage', 'usb', 'drive'],
-    __typename: 'Part',
+    
   },
   {
     id: '2d733bdd-a996-4e41-8d01-e1295b905547',
@@ -1177,7 +1177,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['flash', 'storage', 'usb', 'drive'],
-    __typename: 'Part',
+    
   },
   {
     id: '87607495-a48d-448d-8ec3-08ffcde7f368',
@@ -1190,7 +1190,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['flash', 'storage', 'usb', 'drive', '3.1'],
-    __typename: 'Part',
+    
   },
   {
     id: '53bd2c00-9c60-4966-a1cf-a5940e9d82b9',
@@ -1203,7 +1203,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['flash', 'storage', 'usb', 'drive', '3.0'],
-    __typename: 'Part',
+    
   },
   {
     id: '86e5bcd0-8f23-4f8d-b52b-e08e9c581cd0',
@@ -1216,7 +1216,7 @@ const partData = [
     location: 'closet',
     quantity: 2,
     tags: ['flash', 'storage', 'usb', 'drive'],
-    __typename: 'Part',
+    
   },
   {
     id: '98e86c3c-797e-4316-a33d-2820e0ceb609',
@@ -1229,7 +1229,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['wifi', 'bluetooth', 'usb', 'dongle'],
-    __typename: 'Part',
+    
   },
   {
     id: '08a67a6f-6268-4b38-83b3-b6383ca437b8',
@@ -1242,7 +1242,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['wifi', 'bluetooth', 'usb', 'dongle'],
-    __typename: 'Part',
+    
   },
   {
     id: '381abb13-c343-4f42-baec-a8a176496383',
@@ -1255,7 +1255,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['wifi', 'bluetooth', 'usb', 'dongle'],
-    __typename: 'Part',
+    
   },
   {
     id: '6b2c2e45-f831-4b1b-bcef-73cd061486b1',
@@ -1268,7 +1268,7 @@ const partData = [
     location: 'closet',
     quantity: 0,
     tags: ['misc', 'adapters'],
-    __typename: 'Part',
+    
   },
   {
     id: 'ab219814-4006-44d9-aae1-380379249ecf',
@@ -1281,7 +1281,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['ssd', 'external', 'storage'],
-    __typename: 'Part',
+    
   },
   {
     id: 'b6d7aa26-e0e0-4152-8839-4b4ac03d2c19',
@@ -1294,7 +1294,7 @@ const partData = [
     location: 'closet',
     quantity: 10,
     tags: ['headers', 'pins'],
-    __typename: 'Part',
+    
   },
   {
     id: '17781954-b162-4954-839e-69e5f6062c79',
@@ -1307,7 +1307,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['arduino', 'microcontroller'],
-    __typename: 'Part',
+    
   },
   {
     id: 'b374eada-90f1-4a71-a4cb-6f61cad32721',
@@ -1321,7 +1321,7 @@ const partData = [
     location: 'closet',
     quantity: 2,
     tags: ['ESP32', 'Microcontroller', 'wifi', 'bluetooth', 'camera'],
-    __typename: 'Part',
+    
   },
   {
     id: '8631a2ff-9ce3-4d87-be5c-8804c5e3d84e',
@@ -1334,7 +1334,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['ESP32', 'Microcontroller', 'wifi', 'bluetooth'],
-    __typename: 'Part',
+    
   },
   {
     id: 'c79e0f8d-e6b0-4393-942f-f584a6362747',
@@ -1347,7 +1347,7 @@ const partData = [
     location: 'closet',
     quantity: 2,
     tags: ['ESP32', 'Microcontroller', 'wifi', 'bluetooth'],
-    __typename: 'Part',
+    
   },
   {
     id: '30bb4b3d-2710-457b-82cb-06a2bb65cfc8',
@@ -1361,7 +1361,7 @@ const partData = [
     location: 'closet',
     quantity: 5,
     tags: ['esp32', 'arduino', 'sensor', 'temperature', 'moisture', 'humidity'],
-    __typename: 'Part',
+    
   },
   {
     id: 'cb53edf9-c2bb-4efd-84b5-39a250e53221',
@@ -1374,7 +1374,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['NFC', 'programmer'],
-    __typename: 'Part',
+    
   },
   {
     id: '0f090bea-b0c0-452f-815e-f6dcfcac708f',
@@ -1387,7 +1387,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['raspberrypi', 'sbc'],
-    __typename: 'Part',
+    
   },
   {
     id: 'ad11a931-148e-4063-87a1-016fc970727a',
@@ -1400,7 +1400,7 @@ const partData = [
     location: 'closet',
     quantity: 2,
     tags: ['raspberrypi', 'sbc', 'wireless', 'wifi', 'bluetooth'],
-    __typename: 'Part',
+    
   },
   {
     id: '0d69bc47-8020-457a-8112-efe82b99d748',
@@ -1413,7 +1413,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['raspberrypi', 'microcontroller'],
-    __typename: 'Part',
+    
   },
   {
     id: '8df29d36-d120-4339-ae6d-8e840080bfd1',
@@ -1426,7 +1426,7 @@ const partData = [
     location: 'closet',
     quantity: 2,
     tags: ['raspberrypi', 'microcontroller', 'wireless', 'wifi', 'bluetooth'],
-    __typename: 'Part',
+    
   },
   {
     id: 'db8b6a48-2a41-4c8b-bc36-c1558d206697',
@@ -1439,7 +1439,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['raspberrypi', 'sbc'],
-    __typename: 'Part',
+    
   },
   {
     id: '41ad01fd-4945-4fc6-8e97-7c1b602dc7e7',
@@ -1453,7 +1453,7 @@ const partData = [
     location: 'closet',
     quantity: 1,
     tags: ['raspberrypi', 'sbc', 'wireless', 'wifi', 'bluetooth'],
-    __typename: 'Part',
+    
   },
 ]
 
